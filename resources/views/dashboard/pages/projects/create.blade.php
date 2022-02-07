@@ -40,8 +40,7 @@
                                     <h4 class="card-title">اضافة مشروع</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="row">
-                                        <form action="" method="post">
+                                    <form class="row" action="" method="post">
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المؤسسة</label>
                                             <input type="text" name="company_name" class="form-control credit-card-mask" placeholder="اسم المؤسسة" id="credit-card" />
@@ -93,8 +92,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </section>
+
+            </div>
                 <!-- Input Mask End -->
 
             </div>

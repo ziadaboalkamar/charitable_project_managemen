@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-Route::get('/projects', function () {
-    return view('dashboard.pages.projects.index');
-});
+
+Route::get('/projects',[ProjectController::class,'index'])->name('projects.index');
+Route::get('/projects/create',[ProjectController::class,'create'])->name('projects.index');
