@@ -28,7 +28,7 @@ Route::prefix('admin')->group(function () {
 //    start user
     Route::get('/users',[UserController::class,'index'])->name('users.index');
     Route::get('/users/create',[UserController::class,'create'])->name('users.create');
-    Route::get('/users/store',[UserController::class,'stor'])->name('users.store');
+    Route::post('/users/store',[UserController::class,'store'])->name('users.store');
 
 
 //    end user

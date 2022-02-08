@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branches;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -33,9 +35,34 @@ class UserController extends Controller
 
 
     public function create(){
+        try {
+            $roles = Role::all();
+            $branches = Branches::all();
+            return view('dashboard.pages.users.create',compact('roles','branches'));
+        }catch (\Exception $ex){
+
+        }
         return view('dashboard.pages.users.create');
     }
-    public function store(){
+    public function store(Request $request){
+        try {
+//            User::create([
+//                'firstname' => $request->name,
+//                'lastname' => $request->price,
+//                'jobName' => $request->size,
+//                'email' => $request->category_id,
+//                'phoneNumber' => $request -> active ,
+//                'password' => $filePath,
+//                'rolle_id' => $request->description,
+//                'branch_id' => implode('|' , $image),
+//                'userName'=>
+//
+//
+//            ]);
+        }catch (\Exception $ex){
+
+        }
+        return $request;
 
     }
     public function edit(){

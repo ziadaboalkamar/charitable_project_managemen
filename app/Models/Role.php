@@ -19,4 +19,8 @@ class Role extends Model
     ];
 
     public $timestamps = true;
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'rolle_id','id');
+    }
 }

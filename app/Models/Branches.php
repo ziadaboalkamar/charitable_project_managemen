@@ -17,5 +17,8 @@ class Branches extends Model
         'created_at','updated_at'
     ];
 
-
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'branch_id','id');
+    }
 }

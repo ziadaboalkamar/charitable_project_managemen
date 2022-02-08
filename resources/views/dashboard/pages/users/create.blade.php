@@ -11,7 +11,7 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
-                <form action="" method="POST">
+                <form action="{{route("users.store")}}" method="POST">
                     @csrf
                     <div class="card">
                         <div class="card-body">
@@ -58,7 +58,7 @@
 
                                     <div class="form-group">
                                         <label for="basicInput">{{ __('كلمة المرور') }}</label>
-                                        <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="ادخل كلمة المرور" />
+                                        <input type="password" class="form-control" name="password" placeholder="ادخل كلمة المرور" />
                                         @error('password')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
@@ -69,10 +69,13 @@
                                         <label for="basicInput">{{ __('الصلاحيات') }}</label>
                                         <select name="rolle_id" class="form-control">
                                             <option value=""> --- </option>
-                                            <option value="CA">California</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="WA">Washington</option>
+                                            @if($roles && $roles -> count() > 0)
+                                                @foreach($roles as $role)
+                                                    <option value="{{$role->id}}">{{$role->role_name}}</option>
+
+                                                @endforeach
+
+                                            @endif
                                         </select>
                                         @error('rolle_id')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
@@ -82,10 +85,13 @@
                                         <label for="basicInput">{{ __('الفروع') }}</label>
                                         <select name="branch_id" class="form-control">
                                             <option value=""> --- </option>
-                                            <option value="CA">California</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="WA">Washington</option>
+                                            @if($branches && $branches -> count() > 0)
+                                                @foreach($branches as $branch)
+                                                    <option value="{{$branch->id}}">{{$branch->name}}</option>
+
+                                                @endforeach
+
+                                            @endif
                                         </select>
                                         @error('branch_id')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
@@ -93,7 +99,7 @@
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <div class="form-group">
                                         <label for="basicInput">{{ __('اسم المستخدم') }}</label>
-                                        <input type="text" class="form-control" name="userName" value="{{ old('userName') }}" placeholder="ادخل اسم المستخدم" />
+                                        <input type="text" class="form-control" name="userName" placeholder="ادخل اسم المستخدم" />
                                         @error('userName')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
