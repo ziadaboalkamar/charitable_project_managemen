@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\MainBranche;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Yajra\DataTables\Facades\DataTables;
 
 class MainBrancheController extends Controller
@@ -25,6 +27,9 @@ class MainBrancheController extends Controller
                 ->editColumn('created_at', function (MainBranche $mainBranche) {
                     return $mainBranche->created_at->format('Y-m-d');
                 })
+                // ->editColumn('logo', function (MainBranche $mainBranche) {
+                //     return ;
+                // })
                 ->rawColumns(['record_select', 'actions'])
                 ->make(true);
         }
@@ -63,12 +68,11 @@ class MainBrancheController extends Controller
             $img_path= $img->store('/MainBranches' , 'assets'); 
         
         }
-            $data['logo'] = $img_path;
-       
-     
-
+        $data['logo'] = $img_path;
         MainBranche::create($data);
-        return redirect()->route('main-branches.create') ;   
+        toastr()->success(__('تم حفظ البيانات بنجاح'));
+
+        return redirect()->route('main-branches.index') ;   
     }
 
     /**
@@ -88,9 +92,11 @@ class MainBrancheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MainBranche $main_branch)
     {
-        //
+        return view('dashboard.pages.main_branches.edit',[
+            'main_branch' => $main_branch,
+        ]);
     }
 
     /**
@@ -100,9 +106,29 @@ class MainBrancheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MainBranche $main_branch)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        $data = [];
+        $data['name'] = $request->name;
+        $img_path = null;
+        if($request->hasFile('logo') && $request->file('logo')->isValid()){
+            $imag = $request->file('logo');
+           if($main_branch->logo && Storage::disk('assets')->exists($main_branch->logo)){ 
+            $img_path = $imag->storeAs('/MainBranches', basename($main_branch->logo) , 'assets');
+            }else{
+                $img_path = $imag->store('/MainBranches' , 'assets');
+            }
+            $data['logo'] = $img_path;
+        }
+
+        $main_branch->update($data);
+        toastr()->success(__('تم تعديل البيانات بنجاح'));
+
+        return redirect()->route('main-branches.index') ; 
     }
 
     /**
@@ -111,8 +137,11 @@ class MainBrancheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MainBranche $main_branch)
     {
-        //
+        if (File::exists('assets/'. $main_branch->logo)){
+            unlink('assets/'. $main_branch->logo);
+        }
+        $main_branch->delete();
     }
 }

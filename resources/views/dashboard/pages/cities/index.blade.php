@@ -23,7 +23,7 @@
                         <div class="content-header-left col-md-9 col-12 mb-2">
                             <div class="row breadcrumbs-top">
                                 <div class="col-12">
-                                    <h2 class="content-header-title float-left mb-0">{{__('dashboard.users')}}</h2>
+                                    <h2 class="content-header-title float-left mb-0">المدن</h2>
 
                                 </div>
                             </div>
@@ -32,17 +32,7 @@
                     <div class="content-body">
                         <!-- users list start -->
                         <section class="app-user-list">
-                            <!-- users filter start -->
-                            <div class="card">
-                                <h5 class="card-header">Search Filter</h5>
-                                <div class="d-flex justify-content-between align-items-center mx-50 row pt-0 pb-2">
-                                    <div class="col-md-4 user_role"></div>
-                                    <div class="col-md-4 user_plan"></div>
-                                    <div class="col-md-4 user_status"></div>
-                                </div>
-                            </div>
-                            <!-- users filter end -->
-                            <!-- list section start -->
+                           
                             <div class="card">
                                 <div class="card-datatable table-responsive pt-0">
                                     <table class="project-list-table table">

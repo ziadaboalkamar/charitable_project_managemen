@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css-rtl/core/menu/menu-types/vertical-menu.css')}}">
-    @toastr_css
+    {{-- @toastr_css --}}
 @stop
 
 @section('content')
@@ -25,7 +25,7 @@
                         <div class="content-header-left col-md-9 col-12 mb-2">
                             <div class="row breadcrumbs-top">
                                 <div class="col-12">
-                                    <h2 class="content-header-title float-left mb-0">{{__('dashboard.users')}}</h2>
+                                    <h2 class="content-header-title float-left mb-0">الفروع</h2>
 
                                 </div>
                             </div>
@@ -34,17 +34,7 @@
                     <div class="content-body">
                         <!-- users list start -->
                         <section class="app-user-list">
-                            <!-- users filter start -->
-                            <div class="card">
-                                <h5 class="card-header">Search Filter</h5>
-                                <div class="d-flex justify-content-between align-items-center mx-50 row pt-0 pb-2">
-                                    <div class="col-md-4 user_role"></div>
-                                    <div class="col-md-4 user_plan"></div>
-                                    <div class="col-md-4 user_status"></div>
-                                </div>
-                            </div>
-                            <!-- users filter end -->
-                            <!-- list section start -->
+                           
                             <div class="card">
                                 <div class="card-datatable table-responsive pt-0">
                                     <table class="project-list-table table">
@@ -121,7 +111,7 @@
                 {data: 'email',name:'email',searchable: true},
                 {data: 'number_of_employe',name:'number_of_employe',searchable: true},
                 {data: 'manager_name',name:'manager_name',searchable: false},
-                {data: 'city_id',name:'city_id',searchable: false},
+                {data: 'city_name',name:'city_name',searchable: false},
                 // {data:''}
             ],
             order: [2, 'desc'],
@@ -215,6 +205,6 @@
 
 
     </script>
-@toastr_js
-@toastr_render
+{{-- @toastr_js
+@toastr_render --}}
 @stop

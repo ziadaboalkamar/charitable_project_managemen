@@ -55,7 +55,9 @@ class CityController extends Controller
         $data = [];
         $data['city_name'] = $request->city_name;
         City::create($data);
-        return redirect()->route('cities.create') ;
+        toastr()->success(__('تم حفظ البيانات بنجاح'));
+
+        return redirect()->route('cities.index') ;
 
     }
 
@@ -76,9 +78,11 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(City $city)
     {
-        //
+        return view('dashboard.pages.cities.edit',[
+            'city' => $city,
+        ]);
     }
 
     /**
@@ -88,9 +92,18 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, City $city)
     {
-        //
+        $request->validate([
+            'city_name' => 'required|string',
+        ]);
+
+        $data = [];
+        $data['city_name'] = $request->city_name;
+        $city->update($data);
+        toastr()->success(__('تم تعديل البيانات بنجاح'));
+
+        return redirect()->route('cities.index') ;
     }
 
     /**
@@ -99,8 +112,11 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(City $city)
     {
-        //
+        $city->delete();
+        toastr()->success(__('تم حذف البيانات بنجاح'));
+
+        return redirect()->route('cities.index') ;
     }
 }

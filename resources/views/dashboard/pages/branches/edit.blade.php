@@ -38,7 +38,7 @@
                                     <h4 class="card-title">تعديل فرع</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="row" action="{{ route('branches.update') }}" method="POST" id="create_new">
+                                    <form class="row" action="{{ route('branches.update',$branch->id) }}" method="POST" id="create_new">
                                         @csrf
                                         @method('put')
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
@@ -74,7 +74,7 @@
                                                 <select name="city_id" class="form-control">
                                                     <option value="" selected disabled>اختر المدينة</option>
                                                     @foreach ($cities as $city)
-                                                    <option value="{{ $city->id }}" {{ old('city_id',$branch->city_id) == $teacher->id ? 'selected' : null }}> {{ $city->city_name }}</option>                                                      
+                                                    <option value="{{ $city->id }}" {{ old('city_id',$branch->city_id) == $city->id ? 'selected' : null }}> {{ $city->city_name }}</option>                                                      
                                                     @endforeach
                                                 </select>
                                                 @error('city_id')<span class="text-danger">{{ $message }}</span>@enderror
@@ -83,7 +83,7 @@
  
                                         <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                                             <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ</button>
-                                            <button type="reset" class="btn btn-outline-secondary">اغلاق</button>
+                                            <a href="{{ route('branches.index') }}" class="btn btn-outline-secondary">اغلاق</a>
                                         </div>
                                     </form>
                                     </div>

@@ -11,6 +11,8 @@
     @include('dashboard.layouts.footer')
 
     <!-- BEGIN: Vendor JS-->
+  
+
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->
 
@@ -30,6 +32,8 @@
             }
         })
     </script>
+    @toastr_js
+    @toastr_render
 </body>
 <!-- END: Body-->
 

@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
     <!-- end font -->
-
+    @toastr_css
     @yield('css')
 
 </head>
