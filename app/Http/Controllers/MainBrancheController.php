@@ -2,33 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Branches;
-use App\Models\City;
+use App\Models\MainBranche;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 
-class BrancheController extends Controller
+class MainBrancheController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    /*
+        
+    
+    */
+    public function index()
     {
-        if($request->ajax()){
-            $project = Branches::all();
-
-            return DataTables::of($project)
-                ->addIndexColumn()
-                ->editColumn('created_at', function (Branches $branche) {
-                    return $branche->created_at->format('Y-m-d');
-                })
-                ->rawColumns(['record_select', 'actions'])
-                ->make(true);
-        }
-
-        return view('dashboard.pages.branches.index');
+        
     }
 
     /**
@@ -38,9 +28,7 @@ class BrancheController extends Controller
      */
     public function create()
     {
-        return view('dashboard.pages.branches.create',[
-            'cities' => City::get(),
-        ]);
+        return view('dashboard.pages.main_branches.create');
     }
 
     /**
@@ -51,25 +39,25 @@ class BrancheController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $request->validate([
-            'address' => 'required|string',
-            'phoneNumber' => 'required|numeric',
-            'email' => 'required',
-            'number_of_employe' => 'required|numeric',
-            'manager_name' => 'required|string',
-            'city_id' => 'required',
+            'name' => 'required|string',
         ]);
-        //  return $request;
+
         $data = [];
-        $data['address'] = $request->address;
-        $data['phoneNumber'] = $request->phoneNumber;
-        $data['email'] = $request->email;
-        $data['number_of_employe'] = $request->number_of_employe;
-        $data['manager_name'] = $request->manager_name;
-        $data['city_id'] = $request->city_id;
+        $data['name'] = $request->name;
+        $img_path = null;
+        if($request->hasFile('logo') && $request->file('logo')->isValid()){
+            $img = $request->file('logo');
+            $img_path= $img->store('/MainBranches' , 'assets'); 
         
-        Branches::create($data);
-        return redirect()->route('branches.create') ;
+        }
+            $data['logo'] = $img_path;
+       
+     
+
+        MainBranche::create($data);
+        return redirect()->route('main-branches.create') ;   
     }
 
     /**

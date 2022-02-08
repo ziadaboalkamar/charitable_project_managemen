@@ -17,8 +17,14 @@ class Branches extends Model
         'created_at','updated_at'
     ];
 
+
     public function users()
     {
-        return $this->belongsTo(User::class, 'branch_id','id');
+        return $this->belongsToMany(User::class, 'branch_id','id');
     }
+
+    public function cities(){
+        return $this->belongsto(City::class,'city_id','id');
+    }
+
 }

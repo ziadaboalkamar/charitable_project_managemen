@@ -15,6 +15,9 @@
                     @csrf
                     <div class="card">
                         <div class="card-body">
+                            <div class="card-header">
+                                <h4 class="card-title">البيانات الاساسية</h4>
+                            </div>
                             <div class="row">
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <div class="form-group">
@@ -37,8 +40,7 @@
                                         @error('jobName')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
+
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <div class="form-group">
                                         <label for="basicInput">{{ __('البريد الالكتروني') }}</label>
@@ -54,16 +56,8 @@
                                         @error('phoneNumber')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-12 mb-1">
 
-                                    <div class="form-group">
-                                        <label for="basicInput">{{ __('كلمة المرور') }}</label>
-                                        <input type="password" class="form-control" name="password" placeholder="ادخل كلمة المرور" />
-                                        @error('password')<span class="text-danger">{{ $message }}</span>@enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
+
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <div class="form-group">
                                         <label for="basicInput">{{ __('الصلاحيات') }}</label>
@@ -96,6 +90,14 @@
                                         @error('branch_id')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="card-header">
+                                      <h4 class="card-title">بيانات التسجيل</h4>
+                                  </div>
+                              </div>
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <div class="form-group">
                                         <label for="basicInput">{{ __('اسم المستخدم') }}</label>
@@ -103,11 +105,21 @@
                                         @error('userName')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('كلمة المرور') }}</label>
+                                        <input type="password" class="form-control" name="password" placeholder="ادخل كلمة المرور" />
+                                        @error('password')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+
                                 <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                                     <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ</button>
                                     <button type="reset" class="btn btn-outline-secondary">اغلاق</button>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
                 </form>

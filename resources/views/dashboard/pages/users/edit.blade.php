@@ -6,100 +6,124 @@
     @stop
 @section('content')
 
-    <div class="app-content content">
+    <div class="app-content content ">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
-                    <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">اضافة مشروع</h2>
-                            <div class="breadcrumb-wrapper">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">الرئيسية</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="#">المشاريع</a>
-                                    </li>
-                                    <li class="breadcrumb-item active">اضافة مشروع
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div class="content-body">
-                <!-- Input Mask start -->
-                <section id="input-mask-wrapper">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">اضافة مشروع</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">اسم المؤسسة</label>
-                                            <input type="text" name="company_name" class="form-control credit-card-mask" placeholder="اسم المؤسسة" id="credit-card" />
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="date">اسم المشروع</label>
-                                            <input name="project_name" type="text" class="form-control date-mask" placeholder="اسم المشروع"  />
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="time">تاريخ المنحة</label>
-                                            <input type="date" name="grant_date" class="form-control time-mask" placeholder="hh:mm:ss" id="time" />
-                                        </div>
-                                        <!-- Basic -->
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label>نوع المنحة</label>
-                                            <select name="category_id " class="select2 form-control form-control-lg">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
-
-                                            </select>
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="numeral-formatting">قيمة المنحة</label>
-                                            <input type="text" name="grant_value" class="form-control numeral-mask" placeholder="10,000" id="قيمة المنحة" />
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label>العملة</label>
-                                            <select class="select2 form-control form-control-lg">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
-
-                                            </select>
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="delimiters">سعر الصرف</label>
-                                            <input type="text" name="exchange_amount" class="form-control delimiter-mask" placeholder="سعر الصرف" id="delimiters" />
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="prefix">الاداريات</label>
-                                            <input type="text" name="managerial_fees" class="form-control prefix-mask" id="prefix" />
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="custom-delimiters">تاريخ بداء التنفيذ</label>
-                                            <input type="date" name="start_date" class="form-control custom-delimiter-mask" placeholder="" id="custom-delimiters" />
-                                        </div>
-
+                <form action="{{route("users.update",$user->id)}}" method="POST">
+                    @csrf
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('الاسم الاول') }}</label>
+                                        <input type="text" class="form-control" name="firstname" value="{{ old('firstname',$user->firstname) }}" placeholder="ادحل الاسم الاول" />
+                                        @error('firstname')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('الاسم الاخير') }}</label>
+                                        <input type="text" class="form-control" name="lastname" value="{{ old('lastname',$user->lastname) }}" placeholder="ادحل الاسم الاخير" />
+                                        @error('lastname')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('اسم الوظيفة') }}</label>
+                                        <input type="text" class="form-control" name="jobName" value="{{ old('jobName',$user->jobName) }}" placeholder="ادخل اسم الوظيفة"/>
+                                        @error('jobName')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('البريد الالكتروني') }}</label>
+                                        <input type="email" class="form-control" name="email" value="{{ old('email',$user->email) }}" placeholder="ادخل البريد الالكتروني" />
+                                        @error('email')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('رقم الجوال') }}</label>
+                                        <input type="text" class="form-control" name="phoneNumber" value="{{ old('phoneNumber',$user->phoneNumber) }}" placeholder="ادخل رقم الجوال" />
+                                        @error('phoneNumber')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('الصلاحيات') }}</label>
+                                        <select name="rolle_id" class="form-control">
+                                            <option value=""> --- </option>
+                                            @if($roles && $roles -> count() > 0)
+                                                @foreach($roles as $role)
+                                                    <option @if($role -> id == $user->role_id) selected @endif value="{{$role->id}}">{{$role->role_name}}</option>
+
+                                                @endforeach
+
+                                            @endif
+                                        </select>
+                                        @error('rolle_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <div class="form-group">
+                                        <label for="basicInput">{{ __('الفروع') }}</label>
+                                        <select name="branch_id" class="form-control">
+                                            <option value=""> --- </option>
+                                            @if($branches && $branches -> count() > 0)
+                                                @foreach($branches as $branch)
+                                                    <option @if($branch -> id == $user->branch_id) selected @endif value="{{$branch->id}}">{{$branch->name}}</option>
+
+                                                @endforeach
+
+                                            @endif
+                                        </select>
+                                        @error('branch_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-header">
+                                            <h4 class="card-title">بيانات التسجيل</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="basicInput">{{ __('اسم المستخدم') }}</label>
+                                            <input type="text" class="form-control" name="userName" value="{{ old('userName',$user->userName) }}" placeholder="ادخل اسم المستخدم" />
+                                            @error('userName')<span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+
+                                        <div class="form-group">
+                                            <label for="basicInput">{{ __('كلمة المرور') }}</label>
+                                            <input type="password" class="form-control" name="password" value="{{ old('password',$user->password) }}" placeholder="ادخل كلمة المرور" />
+                                            @error('password')<span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                    <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ</button>
+                                    <button type="reset" class="btn btn-outline-secondary">اغلاق</button>
+
+
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- Input Mask End -->
-
+                </form>
             </div>
         </div>
     </div>
-    <!-- END: Content-->
 @endsection
 @section('js')
 

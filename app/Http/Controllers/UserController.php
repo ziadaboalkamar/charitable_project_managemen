@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Branches;
 use App\Models\Role;
 use App\Models\User;
@@ -11,7 +12,8 @@ use Yajra\DataTables\Facades\DataTables;
 class UserController extends Controller
 {
     public function index(Request $request){
-
+//        $users = User::first();
+//dd($users->roles);
         if($request->ajax()){
             $users = User::all();
 
@@ -20,11 +22,18 @@ class UserController extends Controller
                 ->editColumn('created_at', function (User $users) {
                     return $users->created_at->format('Y-m-d');
                 })
-                ->editColumn('fullName', function (User $users) {
-                    $firstName= $users->firstName;
-                    $lastName= $users->lastName;
+                ->editColumn('firstname', function (User $users) {
+                    $firstName= $users->firstname;
+                    $lastName= $users->lastname;
 
-                    return $firstName + $lastName;
+                    return $firstName.' '. $lastName;
+                })
+                ->editColumn('role_id', function (User $users) {
+
+                    return $users->roles->role_name;
+                })
+                ->editColumn('branch_id', function (User $users) {
+                    return $users->branches->name;
                 })
                 ->rawColumns(['record_select', 'actions'])
                 ->make(true);
@@ -44,31 +53,68 @@ class UserController extends Controller
         }
         return view('dashboard.pages.users.create');
     }
-    public function store(Request $request){
+    public function store(UserRequest $request){
+
         try {
-//            User::create([
-//                'firstname' => $request->name,
-//                'lastname' => $request->price,
-//                'jobName' => $request->size,
-//                'email' => $request->category_id,
-//                'phoneNumber' => $request -> active ,
-//                'password' => $filePath,
-//                'rolle_id' => $request->description,
-//                'branch_id' => implode('|' , $image),
-//                'userName'=>
-//
-//
-//            ]);
+          
+            User::create([
+                'firstname' => $request->firstname,
+               'lastname' => $request->lastname,
+               'jobName' => $request->jobName,
+               'email' => $request->email,
+               'phoneNumber' =>$request->phoneNumber ,
+                'password' => bcrypt($request ->password) ,
+               'role_id' => $request->rolle_id,
+                'branch_id' => $request->branch_id,
+                'userName'=>$request->userName,
+            ]);
+            toastr()->success(__('تم حفظ البيانات بنجاح'));
+            return redirect()->route('users.index');
+
         }catch (\Exception $ex){
+            toastr()->error(__('يوجد خطاء ما'));
+            return redirect()->route('users.index');
+        }
+
+
+    }
+    public function edit($id){
+        $user = User::select()->find($id);
+        $roles = Role::all();
+        $branches = Branches::all();
+        if (!$user){
+            return redirect()->route('users.index');
+        }
+
+        return view('dashboard.pages.users.edit' , compact('user','roles','branches'));
+    }
+    public function update(UserRequest $request,$id){
+        try {
+            $user = User::select()->find($id);
+            if (!$user){
+                return redirect()->route('users.index');
+            }
+            User::where('id' , $id)->update([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'jobName' => $request->jobName,
+                'email' => $request->email,
+                'phoneNumber' => $request -> phoneNumber ,
+                'password' => bcrypt($request ->password) ,
+                'role_id' => $request->rolle_id,
+                'branch_id' => $request->branch_id,
+                'userName'=>$request->userName,
+
+            ]);
+            toastr()->success(__('تم تحديث البيانات بنجاح'));
+            return redirect()->route('users.index');
 
         }
-        return $request;
+        catch (\Exception $exception){
+            toastr()->error(__('يوجد خطاء ما'));
+            return redirect()->route('users.index');
 
-    }
-    public function edit(){
-
-    }
-    public function update(){
+        }
 
     }
     public function delete(){

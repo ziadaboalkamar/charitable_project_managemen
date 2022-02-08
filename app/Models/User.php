@@ -24,7 +24,7 @@ class User extends Authenticatable
         'email',
         'phoneNumber',
         'password',
-        'rolle_id',
+        'role_id',
         'branch_id',
         'userName',
         'updated_at',
@@ -51,12 +51,12 @@ class User extends Authenticatable
     ];
     public function roles()
     {
-        return $this->hasMany(Role::class, 'rolle_id','id');
+        return $this->belongsTo(Role::class, 'role_id','id');
     }
 
     public function branches()
     {
-        return $this->hasMany(Branches::class, 'branch_id','id');
+        return $this->belongsTo(Branches::class, 'branch_id','id');
     }
 
 }

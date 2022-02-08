@@ -20,6 +20,8 @@
     <!-- END: Theme JS-->
 
     @yield('js', ' ')
+    @toastr_js
+    @toastr_render
     <script>
         $(window).on('load', function () {
             if (feather) {
