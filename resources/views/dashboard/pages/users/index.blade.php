@@ -45,15 +45,15 @@
                             <!-- list section start -->
                             <div class="card">
                                 <div class="card-datatable table-responsive pt-0">
-                                    <table class="project-list-table table">
+                                    <table class="user-list-table table">
                                         <thead class="thead-light">
                                         <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th> </th>
+                                            <th>الاسم</th>
+                                            <th>الوظيفة</th>
+                                            <th>الأيميل</th>
+                                            <th>رقم الهاتف </th>
+                                            <th>الصلاحيات</th>
+                                            <th>الفرع</th>
                                             <th>العمليات</th>
 
                                         </tr>
@@ -96,7 +96,7 @@
 
     <script>
 
-        let project_table = $('.project-list-table').DataTable({
+        let project_table = $('.user-list-table').DataTable({
             dom:
                 '<"d-flex justify-content-between align-items-center header-actions mx-1 row mt-75"' +
                 '<"col-lg-12 col-xl-6" l>' +
@@ -112,18 +112,20 @@
                 "url": "{{ asset('app-assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('branches.index') }}',
+                url: '{{ route('users.index') }}',
             },
             columns: [
-                {data: 'address', name:'address',searchable: true},
-                {data: 'phoneNumber',name:'phoneNumber',searchable: true},
+                {data: 'fullName', name:'fullName',searchable: true},
+                {data: 'jobName',name:'jobName',searchable: true},
                 {data: 'email',name:'email',searchable: true},
-                {data: 'number_of_employe',name:'number_of_employe',searchable: true},
-                {data: 'manager_name',name:'manager_name',searchable: false},
-                {data: 'city_id',name:'city_id',searchable: false},
-                {data:''}
+                {data: 'phoneNumber',name:'phoneNumber',searchable: true},
+                {data: 'rolle_id',name:'rolle_id',searchable: false},
+                {data: 'branch_id',name:'branch_id',searchable: false},
+                {data:''},
+
+
             ],
-            order: [2, 'desc'],
+            order: [1, 'desc'],
             buttons: [
                 {
                     extend: 'collection',

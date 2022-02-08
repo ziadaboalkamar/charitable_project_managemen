@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.master')
-@section('title','create')
+@section('title','edit')
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset("app-assets/vendors/css/forms/select/select2.min.css")}}">
 
@@ -40,7 +40,7 @@
                                     <h4 class="card-title">اضافة مشروع</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="row" action="" method="post">
+                                    <div class="row">
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المؤسسة</label>
                                             <input type="text" name="company_name" class="form-control credit-card-mask" placeholder="اسم المؤسسة" id="credit-card" />
@@ -87,14 +87,13 @@
                                             <label for="custom-delimiters">تاريخ بداء التنفيذ</label>
                                             <input type="date" name="start_date" class="form-control custom-delimiter-mask" placeholder="" id="custom-delimiters" />
                                         </div>
-                                    </form>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
-
-            </div>
                 <!-- Input Mask End -->
 
             </div>

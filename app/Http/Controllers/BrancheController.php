@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Branches;
 use App\Models\City;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class BrancheController extends Controller
 {
@@ -13,9 +14,21 @@ class BrancheController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            $project = Branches::all();
+
+            return DataTables::of($project)
+                ->addIndexColumn()
+                ->editColumn('created_at', function (Branches $branche) {
+                    return $branche->created_at->format('Y-m-d');
+                })
+                ->rawColumns(['record_select', 'actions'])
+                ->make(true);
+        }
+
+        return view('dashboard.pages.branches.index');
     }
 
     /**
