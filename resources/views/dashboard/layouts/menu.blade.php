@@ -55,6 +55,34 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المؤسسات</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('main-branches.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء مؤسسة</span></a>
+                    </li>
+                   
+                </ul>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المدن</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('cities.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء المدينة</span></a>
+                    </li>
+                   
+                </ul>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">الفروع</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('branches.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء فرع</span></a>
+                    </li>
+                   
+                </ul>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">الهدية</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('category-of-projects.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء هدية</span></a>
+                    </li>
+                   
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

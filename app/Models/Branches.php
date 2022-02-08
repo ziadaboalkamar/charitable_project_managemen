@@ -17,5 +17,8 @@ class Branches extends Model
         'created_at','updated_at'
     ];
 
+    public function cities(){
+        return $this->belongsto(City::class,'city_id','id');
+    }
 
 }

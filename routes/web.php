@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\BrancheController;
+use App\Http\Controllers\CategoryOfProjectController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\MainBrancheController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +26,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
 Route::get('/projects', function () {
-    return view('dashboard.pages.projects.index');
+    return view('dashboard.pages.main_branches.create');
 });
+
+Route::resource('main-branches', MainBrancheController::class);
+Route::resource('cities', CityController::class);
+Route::resource('branches', BrancheController::class);
+Route::resource('category-of-projects', CategoryOfProjectController::class);

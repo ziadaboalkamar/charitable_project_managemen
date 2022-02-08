@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Branches;
-use App\Models\City;
+use App\Models\CategoriesOfProject;
 use Illuminate\Http\Request;
 
-class BrancheController extends Controller
+class CategoryOfProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,9 +24,8 @@ class BrancheController extends Controller
      */
     public function create()
     {
-        return view('dashboard.pages.branches.create',[
-            'cities' => City::get(),
-        ]);
+        return view('dashboard.pages.category_of_projects.create');
+
     }
 
     /**
@@ -39,24 +37,13 @@ class BrancheController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'address' => 'required|string',
-            'phoneNumber' => 'required|numeric',
-            'email' => 'required',
-            'number_of_employe' => 'required|numeric',
-            'manager_name' => 'required|string',
-            'city_id' => 'required',
+            'name' => 'required|string',
         ]);
-        //  return $request;
+
         $data = [];
-        $data['address'] = $request->address;
-        $data['phoneNumber'] = $request->phoneNumber;
-        $data['email'] = $request->email;
-        $data['number_of_employe'] = $request->number_of_employe;
-        $data['manager_name'] = $request->manager_name;
-        $data['city_id'] = $request->city_id;
-        
-        Branches::create($data);
-        return redirect()->route('branches.create') ;
+        $data['name'] = $request->name;
+        CategoriesOfProject::create($data);
+        return redirect()->route('category-of-projects.create') ;
     }
 
     /**

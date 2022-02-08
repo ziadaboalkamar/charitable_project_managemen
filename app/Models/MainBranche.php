@@ -10,7 +10,7 @@ class MainBranche extends Model
     use HasFactory;
     protected  $table = 'main_branches';
     protected $fillable = [
-        'id', 'name','logo','created_at','updated_at'
+        'name','logo'
     ];
 
 
