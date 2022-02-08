@@ -38,11 +38,11 @@
                                     <h4 class="card-title">اضافة فرع</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="row" action="{{ route('branches.store') }}" method="POST">
+                                    <form class="row" action="{{ route('branches.store') }}" method="POST" id="create_new">
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">العنوان</label>
-                                            <input type="text" name="address" class="form-control credit-card-mask" placeholder="العنوان"  />
+                                            <input type="text" name="address" value="{{ old('address') }}" class="form-control credit-card-mask" placeholder="العنوان"  />
                                             @error('address')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
 

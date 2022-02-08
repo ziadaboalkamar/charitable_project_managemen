@@ -69,7 +69,9 @@ class BrancheController extends Controller
         $data['city_id'] = $request->city_id;
         
         Branches::create($data);
-        return redirect()->route('branches.create') ;
+        toastr()->success(__('تم حفظ البيانات بنجاح'));
+
+        return redirect()->route('branches.index') ;
     }
 
     /**
@@ -89,9 +91,11 @@ class BrancheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Branches $branch)
     {
-        //
+        return view('dashboard.pages.branches.edit',[
+            'branch' => $branch,
+        ]);
     }
 
     /**
@@ -101,9 +105,9 @@ class BrancheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Branches $branch)
     {
-        //
+        
     }
 
     /**

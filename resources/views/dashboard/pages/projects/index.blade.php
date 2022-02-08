@@ -65,10 +65,10 @@
                             <!-- list section end -->
                         </section>
                         <!-- users list ends -->
-                        <form action="/users/create" method="get" class="d-none" id="create_new">
+                        {{-- <form action="/users/create" method="get" class="d-none" id="create_new">
                             @csrf
                             <button type="submit"></button>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>

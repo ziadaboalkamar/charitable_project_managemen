@@ -9,7 +9,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css-rtl/core/menu/menu-types/vertical-menu.css')}}">
+    @toastr_css
 @stop
+
 @section('content')
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -48,14 +50,13 @@
                                     <table class="project-list-table table">
                                         <thead class="thead-light">
                                         <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th> </th>
-                                            <th>العمليات</th>
-
+                                            <th>العنوان</th>
+                                            <th>رقم الهاتف</th>
+                                            <th>البريد الالكتروني</th>
+                                            <th>اسم المدير</th>
+                                            <th>رقم الموظف</th>
+                                            <th>المدينة</th>
+                                            {{-- <th>العمليات</th> --}}
                                         </tr>
                                         </thead>
                                     </table>
@@ -65,10 +66,10 @@
                             <!-- list section end -->
                         </section>
                         <!-- users list ends -->
-                        <form action="/users/create" method="get" class="d-none" id="create_new">
+                        {{-- <form action="/users/create" method="get" class="d-none" id="create_new">
                             @csrf
                             <button type="submit"></button>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>
@@ -121,7 +122,7 @@
                 {data: 'number_of_employe',name:'number_of_employe',searchable: true},
                 {data: 'manager_name',name:'manager_name',searchable: false},
                 {data: 'city_id',name:'city_id',searchable: false},
-                {data:''}
+                // {data:''}
             ],
             order: [2, 'desc'],
             buttons: [
@@ -214,5 +215,6 @@
 
 
     </script>
-
+@toastr_js
+@toastr_render
 @stop

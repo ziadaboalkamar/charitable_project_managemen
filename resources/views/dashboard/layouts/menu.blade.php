@@ -57,6 +57,7 @@
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المؤسسات</span></a>
                 <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('main-branches.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">المؤسسة</span></a>
                     <li><a class="d-flex align-items-center" href="{{ route('main-branches.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء مؤسسة</span></a>
                     </li>
                    
@@ -64,6 +65,7 @@
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المدن</span></a>
                 <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('cities.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List"> المدن</span></a>
                     <li><a class="d-flex align-items-center" href="{{ route('cities.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء المدينة</span></a>
                     </li>
                    
@@ -71,14 +73,16 @@
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">الفروع</span></a>
                 <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('branches.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List"> الفروع</span></a>
                     <li><a class="d-flex align-items-center" href="{{ route('branches.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء فرع</span></a>
                     </li>
                    
                 </ul>
             </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">الهدية</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المنح</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{ route('category-of-projects.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء هدية</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('category-of-projects.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">المنح</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('category-of-projects.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء منحة</span></a>
                     </li>
                    
                 </ul>

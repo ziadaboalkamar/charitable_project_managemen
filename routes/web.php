@@ -34,12 +34,13 @@ Route::get('/projects', function () {
     return view('dashboard.pages.main_branches.create');
 });
 
-Route::resource('main-branches', MainBrancheController::class);
+
+
+Route::prefix('admin')->group(function () {
+    Route::resource('main-branches', MainBrancheController::class);
 Route::resource('cities', CityController::class);
 Route::resource('branches', BrancheController::class);
 Route::resource('category-of-projects', CategoryOfProjectController::class);
-
-Route::prefix('admin')->group(function () {
 //    start user
     Route::get('/users',[UserController::class,'index'])->name('users.index');
     Route::get('/users/create',[UserController::class,'create'])->name('users.create');

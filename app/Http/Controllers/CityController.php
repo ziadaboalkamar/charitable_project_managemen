@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class CityController extends Controller
 {
@@ -12,9 +13,21 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            $cities = City::all();
+
+            return DataTables::of($cities)
+                ->addIndexColumn()
+                ->editColumn('created_at', function (City $cities) {
+                    return $cities->created_at->format('Y-m-d');
+                })
+                ->rawColumns(['record_select', 'actions'])
+                ->make(true);
+        }
+
+        return view('dashboard.pages.cities.index');
     }
 
     /**
