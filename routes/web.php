@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+Route::prefix('admin')->group(function () {
+//    start user
+    Route::get('/users',[UserController::class,'index'])->name('users.index');
+    Route::get('/users/create',[UserController::class,'create'])->name('users.create');
+    Route::get('/users/store',[UserController::class,'stor'])->name('users.store');
 
-Route::get('/projects',[ProjectController::class,'index'])->name('projects.index');
-Route::get('/projects/create',[ProjectController::class,'create'])->name('projects.index');
+
+//    end user
+//    start project
+    Route::get('/projects',[ProjectController::class,'index'])->name('projects.index');
+    Route::get('/projects/create',[ProjectController::class,'create'])->name('projects.create');}
+//    end project
+    );
+
