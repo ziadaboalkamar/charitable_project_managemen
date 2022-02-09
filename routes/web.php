@@ -7,6 +7,7 @@ use App\Http\Controllers\MainBrancheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::get('/projects', function () {
 
 
 Route::prefix('admin')->middleware('auth')->group(function () {
+//    home route
+    Route::get('/',[HomeController::class,'index'])->name('admin');
 //    start user
     Route::get('/users',[UserController::class,'index'])->name('users.index');
     Route::get('/users/create',[UserController::class,'create'])->name('users.create');

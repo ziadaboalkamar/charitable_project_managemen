@@ -88,18 +88,28 @@ class UserController extends Controller
         return view('dashboard.pages.users.edit' , compact('user','roles','branches'));
     }
     public function update(UserRequest $request,$id){
+
         try {
             $user = User::select()->find($id);
             if (!$user){
                 return redirect()->route('users.index');
             }
+             $password = $request->password;
+            if($password == "password"){
+                   $password = $user->password;
+            }
+
+            else{
+                $password = bcrypt($request ->password);
+            }
+
             User::where('id' , $id)->update([
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname,
                 'jobName' => $request->jobName,
                 'email' => $request->email,
                 'phoneNumber' => $request -> phoneNumber ,
-                'password' => bcrypt($request ->password) ,
+                'password' => $password,
                 'role_id' => $request->rolle_id,
                 'branch_id' => $request->branch_id,
                 'userName'=>$request->userName,

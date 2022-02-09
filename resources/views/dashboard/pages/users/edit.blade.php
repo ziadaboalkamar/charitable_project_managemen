@@ -107,7 +107,7 @@
 
                                         <div class="form-group">
                                             <label for="basicInput">{{ __('كلمة المرور') }}</label>
-                                            <input type="password" class="form-control" name="password" value="{{ old('password',$user->password) }}" placeholder="ادخل كلمة المرور" />
+                                            <input type="password" class="form-control" name="password" value="{{ old('password','password') }}" placeholder="ادخل كلمة المرور" />
                                             @error('password')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
                                     </div>

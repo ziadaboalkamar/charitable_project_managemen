@@ -41,18 +41,25 @@
                                 </div>
                                 <div class="card-body">
                                     <form class="row" action="" method="post">
+                                        @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المؤسسة</label>
                                             <input type="text" name="company_name" class="form-control credit-card-mask" placeholder="اسم المؤسسة" id="credit-card" />
+                                            @error('company_name')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="date">اسم المشروع</label>
                                             <input name="project_name" type="text" class="form-control date-mask" placeholder="اسم المشروع"  />
+                                            @error('project_name')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="time">تاريخ المنحة</label>
                                             <input type="date" name="grant_date" class="form-control time-mask" placeholder="hh:mm:ss" id="time" />
+                                            @error('grant_date')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <!-- Basic -->
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
@@ -62,22 +69,30 @@
                                                 <option value="HI">Hawaii</option>
 
                                             </select>
+                                            @error('category_id')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="numeral-formatting">قيمة المنحة</label>
                                             <input type="text" name="grant_value" class="form-control numeral-mask" placeholder="10,000" id="قيمة المنحة" />
+                                            @error('grant_value')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label>العملة</label>
-                                            <select class="select2 form-control form-control-lg">
+                                            <select name="currency_id" class="select2 form-control form-control-lg">
                                                 <option value="AK">Alaska</option>
                                                 <option value="HI">Hawaii</option>
 
                                             </select>
+                                            @error('currency_id')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="delimiters">سعر الصرف</label>
                                             <input type="text" name="exchange_amount" class="form-control delimiter-mask" placeholder="سعر الصرف" id="delimiters" />
+                                            @error('exchange_amount')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="prefix">الاداريات</label>
@@ -86,6 +101,8 @@
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="custom-delimiters">تاريخ بداء التنفيذ</label>
                                             <input type="date" name="start_date" class="form-control custom-delimiter-mask" placeholder="" id="custom-delimiters" />
+                                            @error('start_date')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                     </form>
                                     </div>
