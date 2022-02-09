@@ -12,8 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 class UserController extends Controller
 {
     public function index(Request $request){
-//        $users = User::first();
-//dd($users->roles);
+        $users = User::all();
         if($request->ajax()){
             $users = User::all();
 
@@ -35,11 +34,11 @@ class UserController extends Controller
                 ->editColumn('branch_id', function (User $users) {
                     return $users->branches->name;
                 })
-                ->rawColumns(['record_select', 'actions'])
+                ->rawColumns(['actions'])
                 ->make(true);
         }
 
-        return view('dashboard.pages.users.index');
+        return view('dashboard.pages.users.index',compact('users'));
     }
 
 
@@ -56,7 +55,7 @@ class UserController extends Controller
     public function store(UserRequest $request){
 
         try {
-          
+
             User::create([
                 'firstname' => $request->firstname,
                'lastname' => $request->lastname,
@@ -117,7 +116,22 @@ class UserController extends Controller
         }
 
     }
-    public function delete(){
 
+    public function destroy($id){
+        try {
+            $user= User::find($id);
+            if (!$user){
+                toastr()->error(__('يوجد خطاء ما'));
+                return redirect()->route('user.index');
+            }
+            $user ->delete();
+
+            toastr()->success(__('تم تحديث البيانات بنجاح'));
+            return redirect()->route('users.index');
+
+        }catch (\Exception $ex){
+            toastr()->error(__('يوجد خطاء ما'));
+            return redirect()->route('users.index');
+        }
     }
 }

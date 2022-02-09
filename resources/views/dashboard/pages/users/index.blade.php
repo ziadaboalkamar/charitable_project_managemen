@@ -54,6 +54,8 @@
                                             <th>رقم الهاتف </th>
                                             <th>الصلاحيات</th>
                                             <th>الفرع</th>
+                                            <th>العمليات</th>
+
 
 
                                         </tr>
@@ -121,10 +123,13 @@
                 {data: 'phoneNumber',name:'phoneNumber',searchable: true},
                 {data: 'role_id',name:'role_id',searchable: false},
                 {data: 'branch_id',name:'branch_id',searchable: false},
+                {data: ''}
+
 
 
 
             ],
+
             order: [1, 'desc'],
             buttons: [
                 {
@@ -183,34 +188,34 @@
                         $(node).removeClass('btn-secondary');
                     }
                 }
+                ,
             ],
-            // Actions
-            targets: -1,
-            orderable: false,
-            render: function (data, type, full, meta) {
-                return (
-                    '<div class="btn-group">' +
-                    '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
-                    feather.icons['more-vertical'].toSvg({class: 'font-small-4'}) +
-                    '</a>' +
-                    '<div class="dropdown-menu dropdown-menu-right">' +
-                    '<a href="' +
-                    userView +
-                    '" class="dropdown-item">' +
-                    feather.icons['file-text'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Details</a>' +
-                    '<a href="' +
-                    userEdit +
-                    '" class="dropdown-item">' +
-                    feather.icons['archive'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Edit</a>' +
-                    '<a href="javascript:;" class="dropdown-item delete-record">' +
-                    feather.icons['trash-2'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Delete</a></div>' +
-                    '</div>' +
-                    '</div>'
-                );
-            }
+            columnDefs:[
+                {
+                    // Actions
+                    targets: -1,
+                    orderable: false,
+                    render: function (data, type, full, meta) {
+                        var id = full['id'];
+                        return (
+                            '<div class="btn-group">' +
+                            '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
+                            feather.icons['more-vertical'].toSvg({class: 'font-small-4'}) +
+                            '</a>' +
+                            '<div class="dropdown-menu dropdown-menu-right">' +
+                            '<a href="users/edit/' + id + '" class="dropdown-item">' +
+                            feather.icons['archive'].toSvg({class: 'font-small-4 mr-50'}) +
+                            'Edit</a>' +
+                            '<a href="users/delete/' + id + '" class="dropdown-item delete-record">' +
+                            feather.icons['trash-2'].toSvg({class: 'font-small-4 mr-50'}) +
+                            'Delete</a></div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            ]
+
 
         });
 

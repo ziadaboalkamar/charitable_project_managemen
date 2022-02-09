@@ -36,13 +36,17 @@ Route::get('/projects', function () {
 
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
 //    start user
     Route::get('/users',[UserController::class,'index'])->name('users.index');
     Route::get('/users/create',[UserController::class,'create'])->name('users.create');
     Route::post('/users/store',[UserController::class,'store'])->name('users.store');
     Route::get('/users/edit/{id}',[UserController::class,'edit'])->name('users.edit');
+    Route::get('/users/edit/{id}',[UserController::class,'edit'])->name('user.view');
+
     Route::post('/users/update/{id}',[UserController::class,'update'])->name('users.update');
+    Route::get('/users/delete/{id}',[UserController::class,'destroy'])->name('users.destroy');
+
 
 
 
