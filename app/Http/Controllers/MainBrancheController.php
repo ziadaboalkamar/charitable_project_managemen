@@ -31,7 +31,7 @@ class MainBrancheController extends Controller
                     $url = asset('assets/' . $data->logo);
                     return '<img src="' . $url . '" border="0" width="80" class="img-rounded" align="center" />';
                 })
-                ->rawColumns(['logo', 'actions'])
+                ->rawColumns(['logo', 'actionshgg'])
                 ->make(true);
         }
 
