@@ -19,7 +19,7 @@ class MainBrancheController extends Controller
     */
     public function index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             $mainBranche = MainBranche::all();
 
             return DataTables::of($mainBranche)
@@ -27,14 +27,15 @@ class MainBrancheController extends Controller
                 ->editColumn('created_at', function (MainBranche $mainBranche) {
                     return $mainBranche->created_at->format('Y-m-d');
                 })
-                // ->editColumn('logo', function (MainBranche $mainBranche) {
-                //     return ;
-                // })
-                ->rawColumns(['record_select', 'actions'])
+                ->editColumn('logo', function ($data) {
+                    $url = asset('assets/' . $data->logo);
+                    return '<img src="' . $url . '" border="0" width="80" class="img-rounded" align="center" />';
+                })
+                ->rawColumns(['logo', 'actions'])
                 ->make(true);
         }
 
-        return view('dashboard.pages.main_branches.index',[
+        return view('dashboard.pages.main_branches.index', [
             'mainBranches' => MainBranche::get(),
         ]);
     }
@@ -65,16 +66,15 @@ class MainBrancheController extends Controller
         $data = [];
         $data['name'] = $request->name;
         $img_path = null;
-        if($request->hasFile('logo') && $request->file('logo')->isValid()){
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
             $img = $request->file('logo');
-            $img_path= $img->store('/MainBranches' , 'assets'); 
-        
+            $img_path = $img->store('/MainBranches', 'assets');
         }
         $data['logo'] = $img_path;
         MainBranche::create($data);
         toastr()->success(__('تم حفظ البيانات بنجاح'));
 
-        return redirect()->route('main-branches.index') ;   
+        return redirect()->route('main-branches.index');
     }
 
     /**
@@ -96,7 +96,7 @@ class MainBrancheController extends Controller
      */
     public function edit(MainBranche $main_branch)
     {
-        return view('dashboard.pages.main_branches.edit',[
+        return view('dashboard.pages.main_branches.edit', [
             'main_branch' => $main_branch,
         ]);
     }
@@ -117,12 +117,12 @@ class MainBrancheController extends Controller
         $data = [];
         $data['name'] = $request->name;
         $img_path = null;
-        if($request->hasFile('logo') && $request->file('logo')->isValid()){
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
             $imag = $request->file('logo');
-           if($main_branch->logo && Storage::disk('assets')->exists($main_branch->logo)){ 
-            $img_path = $imag->storeAs('/MainBranches', basename($main_branch->logo) , 'assets');
-            }else{
-                $img_path = $imag->store('/MainBranches' , 'assets');
+            if ($main_branch->logo && Storage::disk('assets')->exists($main_branch->logo)) {
+                $img_path = $imag->storeAs('/MainBranches', basename($main_branch->logo), 'assets');
+            } else {
+                $img_path = $imag->store('/MainBranches', 'assets');
             }
             $data['logo'] = $img_path;
         }
@@ -130,7 +130,7 @@ class MainBrancheController extends Controller
         $main_branch->update($data);
         toastr()->success(__('تم تعديل البيانات بنجاح'));
 
-        return redirect()->route('main-branches.index') ; 
+        return redirect()->route('main-branches.index');
     }
 
     /**
@@ -141,12 +141,12 @@ class MainBrancheController extends Controller
      */
     public function destroy(MainBranche $main_branch)
     {
-        if (File::exists('assets/'. $main_branch->logo)){
-            unlink('assets/'. $main_branch->logo);
+        if (File::exists('assets/' . $main_branch->logo)) {
+            unlink('assets/' . $main_branch->logo);
         }
         $main_branch->delete();
         toastr()->success(__('تم حذف البيانات بنجاح'));
 
-        return redirect()->route('main-branches.index') ;
+        return redirect()->route('main-branches.index');
     }
 }

@@ -46,7 +46,7 @@
                                     <table class="project-list-table table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>العنوان</th>
+                                                <th>اسم الفرع</th>
                                                 <th>رقم الهاتف</th>
                                                 <th>البريد الالكتروني</th>
                                                 <th>اسم المدير</th>
@@ -72,7 +72,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">حذف الفرع
+                                            <h5 class="modal-title" id="exampleModalLabel">حذف الفرع <span class="text-primary">{{ $branhe->address }}</span>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">

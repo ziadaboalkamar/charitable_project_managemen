@@ -27,7 +27,9 @@ class CityController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.pages.cities.index');
+        return view('dashboard.pages.cities.index',[
+            'cities' => City::get(),
+        ]);
     }
 
     /**

@@ -27,7 +27,9 @@ class CategoryOfProjectController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.pages.category_of_projects.index');
+        return view('dashboard.pages.category_of_projects.index',[
+            'categoriesOfProjects' => CategoriesOfProject::get(),
+        ]);
     }
 
     /**
@@ -110,8 +112,11 @@ class CategoryOfProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoriesOfProject $category_of_project)
     {
-        //
+        $category_of_project->delete();
+        toastr()->success(__('تم حذف البيانات بنجاح'));
+
+        return redirect()->route('category-of-projects.index') ;
     }
 }

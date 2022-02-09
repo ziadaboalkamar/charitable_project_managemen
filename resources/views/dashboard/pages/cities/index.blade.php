@@ -39,7 +39,7 @@
                                         <thead class="thead-light">
                                         <tr>
                                             <th>اسم المدينة</th>
-                                            {{-- <th>العمليات</th> --}}
+                                            <th>العمليات</th>
                                         </tr>
                                         </thead>
                                     </table>
@@ -48,11 +48,39 @@
                             </div>
                             <!-- list section end -->
                         </section>
-                        <!-- users list ends -->
-                        {{-- <form action="/users/create" method="get" class="d-none" id="create_new">
+                        <form action="{{ route('cities.create') }}" method="get" class="d-none" id="create_new">
                             @csrf
                             <button type="submit"></button>
-                        </form> --}}
+                        </form>
+                        @foreach ($cities as $city)
+                                       <!-- Modal -->
+                        <div class="modal fade" id="delete{{ $city->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"> حذف المدينة <span class="text-primary">{{ $city->city_name }}</span></h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('cities.destroy', $city->id) }}" method="post">
+                                        {{ method_field('delete') }}
+                                        {{ csrf_field() }}
+                                        <div class="modal-body">
+                                            <h5>هل انت متاكد من حذف البيانات</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">اغلاق</button>
+                                            <button type="submit" class="btn btn-danger">حذف</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -100,7 +128,7 @@
             },
             columns: [
                 {data: 'city_name', name:'city_name',searchable: true},
-                // {data:''}
+                {data:''}
             ],
             order: [0, 'desc'],
             buttons: [
@@ -162,32 +190,40 @@
                 }
             ],
             // Actions
-            targets: -1,
-            orderable: false,
-            render: function (data, type, full, meta) {
-                return (
-                    '<div class="btn-group">' +
-                    '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
-                    feather.icons['more-vertical'].toSvg({class: 'font-small-4'}) +
-                    '</a>' +
-                    '<div class="dropdown-menu dropdown-menu-right">' +
-                    '<a href="' +
-                    userView +
-                    '" class="dropdown-item">' +
-                    feather.icons['file-text'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Details</a>' +
-                    '<a href="' +
-                    userEdit +
-                    '" class="dropdown-item">' +
-                    feather.icons['archive'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Edit</a>' +
-                    '<a href="javascript:;" class="dropdown-item delete-record">' +
-                    feather.icons['trash-2'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Delete</a></div>' +
-                    '</div>' +
-                    '</div>'
-                );
-            }
+            columnDefs: [
+                // Actions
+                {
+                    targets: -1,
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        var id = full['id'];
+
+                        return (
+                            '<div class="btn-group">' +
+                            '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
+                            feather.icons['more-vertical'].toSvg({
+                                class: 'font-small-4'
+                            }) +
+                            '</a>' +
+                            '<div class="dropdown-menu dropdown-menu-right">' +
+                            '<a href="cities/' + id + '/edit" class="dropdown-item">' +
+                            feather.icons['archive'].toSvg({
+                                class: 'font-small-4 mr-50'
+                            }) +
+                            'Edit</a>' +
+                            '<a href="javascript:void()" class="dropdown-item" data-toggle="modal"' +
+                            ' data-target="#delete' + id + '">' +
+                            feather.icons['trash-2'].toSvg({
+                                class: 'font-small-4 mr-50'
+                            }) +
+                            'Delete</a></div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            ]
+
 
         });
 
