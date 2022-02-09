@@ -34,7 +34,9 @@ class MainBrancheController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.pages.main_branches.index');
+        return view('dashboard.pages.main_branches.index',[
+            'mainBranches' => MainBranche::get(),
+        ]);
     }
 
     /**
@@ -143,5 +145,8 @@ class MainBrancheController extends Controller
             unlink('assets/'. $main_branch->logo);
         }
         $main_branch->delete();
+        toastr()->success(__('تم حذف البيانات بنجاح'));
+
+        return redirect()->route('main-branches.index') ;
     }
 }

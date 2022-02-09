@@ -9,7 +9,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css-rtl/core/menu/menu-types/vertical-menu.css')}}">
+    {{-- @toastr_css --}}
 @stop
+
 @section('content')
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -23,7 +25,7 @@
                         <div class="content-header-left col-md-9 col-12 mb-2">
                             <div class="row breadcrumbs-top">
                                 <div class="col-12">
-                                    <h2 class="content-header-title float-left mb-0">المنح</h2>
+                                    <h2 class="content-header-title float-left mb-0">المتبرعين</h2>
 
                                 </div>
                             </div>
@@ -32,16 +34,17 @@
                     <div class="content-body">
                         <!-- users list start -->
                         <section class="app-user-list">
-                            <!-- users filter start -->
                            
-                            <!-- users filter end -->
-                            <!-- list section start -->
                             <div class="card">
                                 <div class="card-datatable table-responsive pt-0">
                                     <table class="project-list-table table">
                                         <thead class="thead-light">
                                         <tr>
-                                            <th>اسم المنحة</th>
+                                            <th>الاسم</th>
+                                            <th>رقم الهاتف</th>
+                                            <th>المدينة</th>
+                                            <th>صورة</th>
+                                            <th>البريد الالكتروني</th>
                                             {{-- <th>العمليات</th> --}}
                                         </tr>
                                         </thead>
@@ -99,10 +102,14 @@
                 "url": "{{ asset('app-assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('category-of-projects.index') }}',
+                url: '{{ route('donors.index') }}',
             },
             columns: [
                 {data: 'name', name:'name',searchable: true},
+                {data: 'phone',name:'phone',searchable: true},
+                {data: 'country',name:'country',searchable: true},
+                {data: 'logo',name:'logo',searchable: true},
+                {data: 'email',name:'email',searchable: false},
                 // {data:''}
             ],
             order: [0, 'desc'],
@@ -165,44 +172,37 @@
                 }
             ],
             // Actions
-            columnDefs: [
-                // Actions
-                {
-                    targets: -1,
-                    orderable: false,
-                    render: function(data, type, full, meta) {
-                        var id = full['id'];
-
-                        return (
-                            '<div class="btn-group">' +
-                            '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
-                            feather.icons['more-vertical'].toSvg({
-                                class: 'font-small-4'
-                            }) +
-                            '</a>' +
-                            '<div class="dropdown-menu dropdown-menu-right">' +
-                            '<a href="main-branches/' + id + '/edit" class="dropdown-item">' +
-                            feather.icons['archive'].toSvg({
-                                class: 'font-small-4 mr-50'
-                            }) +
-                            'Edit</a>' +
-                            '<a href="javascript:void()" class="dropdown-item" data-toggle="modal"' +
-                            ' data-target="#delete' + id + '">' +
-                            feather.icons['trash-2'].toSvg({
-                                class: 'font-small-4 mr-50'
-                            }) +
-                            'Delete</a></div>' +
-                            '</div>' +
-                            '</div>'
-                        );
-                    }
-                }
-            ]
-
+            targets: -1,
+            orderable: false,
+            render: function (data, type, full, meta) {
+                return (
+                    '<div class="btn-group">' +
+                    '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
+                    feather.icons['more-vertical'].toSvg({class: 'font-small-4'}) +
+                    '</a>' +
+                    '<div class="dropdown-menu dropdown-menu-right">' +
+                    '<a href="' +
+                    userView +
+                    '" class="dropdown-item">' +
+                    feather.icons['file-text'].toSvg({class: 'font-small-4 mr-50'}) +
+                    'Details</a>' +
+                    '<a href="' +
+                    userEdit +
+                    '" class="dropdown-item">' +
+                    feather.icons['archive'].toSvg({class: 'font-small-4 mr-50'}) +
+                    'Edit</a>' +
+                    '<a href="javascript:;" class="dropdown-item delete-record">' +
+                    feather.icons['trash-2'].toSvg({class: 'font-small-4 mr-50'}) +
+                    'Delete</a></div>' +
+                    '</div>' +
+                    '</div>'
+                );
+            }
 
         });
 
 
     </script>
-
+{{-- @toastr_js
+@toastr_render --}}
 @stop

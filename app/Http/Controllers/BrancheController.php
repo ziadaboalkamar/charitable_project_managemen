@@ -31,7 +31,9 @@ class BrancheController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.pages.branches.index');
+        return view('dashboard.pages.branches.index',[
+            'branhes' => Branches::get(),
+        ]);
     }
 
     /**

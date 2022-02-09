@@ -39,6 +39,7 @@ class CityController extends Controller
     {
         return view('dashboard.pages.cities.create');
     }
+    
 
     /**
      * Store a newly created resource in storage.
