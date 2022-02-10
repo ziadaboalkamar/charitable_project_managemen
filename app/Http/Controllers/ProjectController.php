@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttachmentCategory;
+use App\Models\CategoriesOfProject;
+use App\Models\Currency;
 use App\Models\Project;
+use App\Models\ProjectAttachment;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -28,6 +32,9 @@ class ProjectController extends Controller
 
 
     public function create(){
+        $category = CategoriesOfProject::all();
+        $currency = Currency::all();
+        $attachment = ProjectAttachment::all();
         return view('dashboard.pages.projects.create');
     }
     public function store(){
