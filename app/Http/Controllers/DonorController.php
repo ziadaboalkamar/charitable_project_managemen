@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Donor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class DonorController extends Controller
@@ -22,7 +23,11 @@ class DonorController extends Controller
                 ->editColumn('created_at', function (Donor $donor) {
                     return $donor->created_at->format('Y-m-d');
                 })
-                ->rawColumns(['record_select', 'actions'])
+                ->editColumn('logo', function ($data) {
+                    $url = asset('assets/' . $data->logo);
+                    return '<img src="' . $url . '" border="0" width="80" class="img-rounded" align="center" />';
+                })
+                ->rawColumns(['logo', 'actions'])
                 ->make(true);
         }
 
@@ -61,11 +66,15 @@ class DonorController extends Controller
         $data['name'] = $request->name;
         $data['phone'] = $request->phone;
         $data['country'] = $request->country;
-        $data['logo'] = $request->logo;
         $data['username'] = $request->username;
-        $data['password'] = $request->password;
+        $data['password'] = Hash::make($request->password) ;
         $data['email'] = $request->email;
-        
+        $img_path = null;
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            $img = $request->file('logo');
+            $img_path = $img->store('/Donors', 'assets');
+        }
+        $data['logo'] = $img_path;        
         Donor::create($data);
         toastr()->success(__('تم حفظ البيانات بنجاح'));
 

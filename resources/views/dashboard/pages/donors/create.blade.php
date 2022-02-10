@@ -19,7 +19,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="#">المتبرع</a>
                                     </li>
-                                    <li class="breadcrumb-item active">اضافة فرع
+                                    <li class="breadcrumb-item active">اضافة متبرع
                                     </li>
                                 </ol>
                             </div>
@@ -35,54 +35,52 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">اضافة فرع</h4>
+                                    <h4 class="card-title">اضافة متبرع</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="row" action="{{ route('branches.store') }}" method="POST" id="create_new">
+                                    <form class="row" action="{{ route('donors.store') }}" method="POST" id="create_new" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">العنوان</label>
-                                            <input type="text" name="address" value="{{ old('address') }}" class="form-control credit-card-mask" placeholder="العنوان"  />
-                                            @error('address')<span class="text-danger">{{ $message }}</span>@enderror
+                                            <label for="credit-card">اسم المتبرع</label>
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control credit-card-mask" placeholder="اسم المتبرع"  />
+                                            @error('name')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">رقم الهاتف</label>
-                                            <input type="text" name="phoneNumber" class="form-control credit-card-mask" placeholder="رقم الهاتف"  />
-                                            @error('phoneNumber')<span class="text-danger">{{ $message }}</span>@enderror
+                                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control credit-card-mask" placeholder="رقم الهاتف"  />
+                                            @error('phone')<span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                      
+                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
+                                            <label for="credit-card">المنطقة</label>
+                                            <input type="text" name="country" value="{{ old('country') }}" class="form-control credit-card-mask" placeholder="اسم المنطقة"  />
+                                            @error('country')<span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
+                                            <label for="credit-card">صورة</label>
+                                            <input type="file" name="logo" class="form-control credit-card-mask" placeholder="صورة"  />
+                                            @error('logo')<span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
+                                            <label for="credit-card">صورة</label>
+                                            <input type="text" name="username" value="{{ old('username') }}" class="form-control credit-card-mask" placeholder="اسم المستخدم"  />
+                                            @error('username')<span class="text-danger">{{ $message }}</span>@enderror
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
+                                            <label for="credit-card">كلمة المرور</label>
+                                            <input type="password" name="password" value="{{ old('password') }}" class="form-control credit-card-mask" placeholder="كلمة المرور"  />
+                                            @error('password')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">البريد الالكتروني</label>
-                                            <input type="email" name="email" class="form-control credit-card-mask" placeholder="البريد الالكتروني"  />
+                                            <input type="email" name="email" value="{{ old('email') }}" class="form-control credit-card-mask" placeholder="البريد الالكتروني"  />
                                             @error('email')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">رقم الموظف</label>
-                                            <input type="text" name="number_of_employe" class="form-control credit-card-mask" placeholder="رقم الموظف"  />
-                                            @error('number_of_employe')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">اسم المدير</label>
-                                            <input type="text" name="manager_name" class="form-control credit-card-mask" placeholder="اسم المدير"  />
-                                            @error('manager_name')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
- 
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <div class="form-group">
-                                                <label for="basicInput">المدينة</label>
-                                                <select name="city_id" class="form-control">
-                                                    <option value="" selected disabled>اختر المدينة</option>
-                                                    @foreach ($cities as $city)
-                                                    <option value="{{ $city->id }}"> {{ $city->city_name }}</option>                                                      
-                                                    @endforeach
-                                                </select>
-                                                @error('city_id')<span class="text-danger">{{ $message }}</span>@enderror
-                                            </div>
                                         </div>
  
                                         <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                                             <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ</button>
-                                            <a href="{{ route('branches.index') }}" class="btn btn-outline-secondary">اغلاق</a>
+                                            <a href="{{ route('donors.index') }}" class="btn btn-outline-secondary">اغلاق</a>
                                         </div>
                                     </form>
                                     </div>

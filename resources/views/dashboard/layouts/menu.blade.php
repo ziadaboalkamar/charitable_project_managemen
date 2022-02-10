@@ -92,7 +92,13 @@
                     <li><a class="d-flex align-items-center" href="{{ route('donors.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">كافة المتبرعين</span></a>
                     <li><a class="d-flex align-items-center" href="{{ route('donors.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء متبرع</span></a>
                     </li>
-                   
+                </ul>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المستفيدين</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{ route('beneficiareis.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">كافة المستفيدين</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('beneficiareis.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء مستفيد</span></a>
+                    </li>
                 </ul>
             </li>
         </ul>

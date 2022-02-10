@@ -31,7 +31,7 @@
                         <div class="content-header-left col-md-9 col-12 mb-2">
                             <div class="row breadcrumbs-top">
                                 <div class="col-12">
-                                    <h2 class="content-header-title float-left mb-0">الفروع</h2>
+                                    <h2 class="content-header-title float-left mb-0">المستفيدين</h2>
 
                                 </div>
                             </div>
@@ -45,12 +45,20 @@
                                     <table class="project-list-table table">
                                         <thead class="thead-light">
                                             <tr>
+                                                <th>اسم الاول</th>
+                                                <th>اسم الاب</th>
+                                                <th>اسم الجد</th>
+                                                <th>اسم العائلة</th>
+                                                <th>الجنس</th>
+                                                <th>رقم الهوية</th>
+                                                <th>رقم الجوال</th>
+                                                <th>عدد افراد الاسرة</th>
                                                 <th>اسم الفرع</th>
-                                                <th>رقم الهاتف</th>
-                                                <th>البريد الالكتروني</th>
-                                                <th>رقم الموظف</th>
-                                                <th>اسم المدير</th>
+                                                <th>اسم الشركة</th>
                                                 <th>المدينة</th>
+                                                <th>العنوان</th>
+                                                <th>maritial</th>
+                                                <th>الحالة</th>
                                                 <th>العمليات</th>
                                             </tr>
                                         </thead>
@@ -59,25 +67,28 @@
                             </div>
                             <!-- list section end -->
                         </section>
-                        <form action="{{ route('branches.create') }}" method="get" class="d-none" id="create_new">
+                        <form action="{{ route('beneficiareis.create') }}" method="get" class="d-none"
+                            id="create_new">
                             @csrf
                             <button type="submit"></button>
                         </form>
-                        @foreach ($branhes as $branhe)
+                        @foreach ($beneficiareis as $beneficiary)
                             <!-- Modal -->
-                            <div class="modal fade" id="delete{{ $branhe->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="delete{{ $beneficiary->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">حذف الفرع <span class="text-primary">{{ $branhe->address }}</span>
+                                            <h5 class="modal-title" id="exampleModalLabel">حذف الفرع <span
+                                                    class="text-primary">{{ $beneficiary->firstName }}</span>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('branches.destroy', $branhe->id) }}" method="post">
+                                        <form action="{{ route('beneficiareis.destroy', $beneficiary->id) }}"
+                                            method="post">
                                             {{ method_field('delete') }}
                                             {{ csrf_field() }}
                                             <div class="modal-body">
@@ -135,43 +146,83 @@
                 "url": "{{ asset('app-assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('branches.index') }}',
+                url: '{{ route('beneficiareis.index') }}',
             },
             columns: [{
+                    data: 'firstName',
+                    name: 'firstName',
+                    searchable: true
+                },
+                {
+                    data: 'secondName',
+                    name: 'secondName',
+                    searchable: true
+                },
+                {
+                    data: 'thirdName',
+                    name: 'thirdName',
+                    searchable: true
+                },
+                {
+                    data: 'lastName',
+                    name: 'lastName',
+                    searchable: true
+                },
+                {
+                    data: 'gender',
+                    name: 'gender',
+                    searchable: true
+                },
+                {
+                    data: 'id_number',
+                    name: 'id_number',
+                    searchable: true
+                },
+                {
+                    data: 'PhoneNumber',
+                    name: 'PhoneNumber',
+                    searchable: true
+                },
+                {
+                    data: 'family_member',
+                    name: 'family_member',
+                    searchable: true
+                },
+                {
+                    data: 'branch_id',
+                    name: 'branch_id',
+                    searchable: true
+                },
+                {
+                    data: 'project_id',
+                    name: 'project_id',
+                    searchable: true
+                },
+                {
+                    data: 'city_id',
+                    name: 'city_id',
+                    searchable: true
+                },
+                {
                     data: 'address',
                     name: 'address',
-                    searchable: true
-                },
-                {
-                    data: 'phoneNumber',
-                    name: 'phoneNumber',
-                    searchable: true
-                },
-                {
-                    data: 'email',
-                    name: 'email',
-                    searchable: true
-                },
-                {
-                    data: 'number_of_employe',
-                    name: 'number_of_employe',
-                    searchable: true
-                },
-                {
-                    data: 'manager_name',
-                    name: 'manager_name',
                     searchable: false
                 },
                 {
-                    data: 'city_name',
-                    name: 'city_name',
+                    data: 'maritial',
+                    name: 'maritial',
+                    searchable: false
+                },
+                {
+                    data: 'status_id',
+                    name: 'status_id',
                     searchable: false
                 },
                 {
                     data: ''
                 }
             ],
-            order: [2, 'desc'],
+            order: [0, 'desc'],
             buttons: [{
                     extend: 'collection',
                     className: 'btn btn-outline-secondary dropdown-toggle mr-2 mt-50',
@@ -267,7 +318,7 @@
                             }) +
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
-                            '<a href="branches/' + id + '/edit" class="dropdown-item">' +
+                            '<a href="beneficiareis/' + id + '/edit" class="dropdown-item">' +
                             feather.icons['archive'].toSvg({
                                 class: 'font-small-4 mr-50'
                             }) +

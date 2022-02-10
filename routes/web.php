@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BrancheController;
 use App\Http\Controllers\CategoryOfProjectController;
 use App\Http\Controllers\CityController;
@@ -43,6 +44,7 @@ Route::resource('cities', CityController::class);
 Route::resource('branches', BrancheController::class);
 Route::resource('category-of-projects', CategoryOfProjectController::class);
 Route::resource('donors', DonorController::class);
+Route::resource('beneficiareis', BeneficiaryController::class);
 //    start user
     Route::get('/users',[UserController::class,'index'])->name('users.index');
     Route::get('/users/create',[UserController::class,'create'])->name('users.create');

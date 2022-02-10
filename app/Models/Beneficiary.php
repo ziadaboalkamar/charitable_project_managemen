@@ -18,5 +18,14 @@ class Beneficiary extends Model
         'created_at','updated_at'
     ];
 
+    public function cities(){
+        return $this->belongsTo(City::class,'city_id','id');
+    }
+    public function projects(){
+        return $this->belongsTo(Project::class,'project_id','id');
+    }
+    public function branchs(){
+        return $this->belongsTo(Branches::class,'branch_id','id');
+    }
     public $timestamps = true;
 }
