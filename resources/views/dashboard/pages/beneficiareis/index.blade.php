@@ -54,10 +54,9 @@
                                                 <th>رقم الجوال</th>
                                                 <th>عدد افراد الاسرة</th>
                                                 <th>اسم الفرع</th>
-                                                <th>اسم الشركة</th>
                                                 <th>المدينة</th>
                                                 <th>العنوان</th>
-                                                <th>maritial</th>
+                                                <th>الحالة الاجتماعية</th>
                                                 <th>الحالة</th>
                                                 <th>العمليات</th>
                                             </tr>
@@ -104,6 +103,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('dashboard.pages.beneficiareis.updateStatus')
                         @endforeach
                     </div>
                 </div>
@@ -189,18 +189,14 @@
                     searchable: true
                 },
                 {
-                    data: 'branch_id',
-                    name: 'branch_id',
+                    data: 'branch_name',
+                    name: 'branch_name',
                     searchable: true
                 },
+               
                 {
-                    data: 'project_id',
-                    name: 'project_id',
-                    searchable: true
-                },
-                {
-                    data: 'city_id',
-                    name: 'city_id',
+                    data: 'city_name',
+                    name: 'city_name',
                     searchable: true
                 },
                 {
@@ -214,8 +210,8 @@
                     searchable: false
                 },
                 {
-                    data: 'status_id',
-                    name: 'status_id',
+                    data: 'active',
+                    name: 'active',
                     searchable: false
                 },
                 {
@@ -328,7 +324,12 @@
                             feather.icons['trash-2'].toSvg({
                                 class: 'font-small-4 mr-50'
                             }) +
-                            'Delete</a></div>' +
+                            'Delete</a>'+ '<a href="javascript:void()" class="dropdown-item" data-toggle="modal"' +
+                            ' data-target="#update_status' + id + '">' +
+                            feather.icons['trash-2'].toSvg({
+                                class: 'font-small-4 mr-50'
+                            }) +
+                            'update_status</a> </div>' +
                             '</div>' +
                             '</div>'
                         );

@@ -31,7 +31,9 @@ class DonorController extends Controller
                 ->make(true);
         }
 
-        return view('dashboard.pages.donors.index');
+        return view('dashboard.pages.donors.index',[
+            'donors' => Donor::get(),
+        ]);
     }
 
     /**
@@ -55,19 +57,13 @@ class DonorController extends Controller
         $request->validate([
             'name' => 'required|string',
             'phone' => 'required|numeric',
-            'country' => 'required',
             'logo' => 'required',
-            'username' => 'required|string',
-            'password' => 'required',
             'email' => 'required',
         ]);
         //  return $request;
         $data = [];
         $data['name'] = $request->name;
         $data['phone'] = $request->phone;
-        $data['country'] = $request->country;
-        $data['username'] = $request->username;
-        $data['password'] = Hash::make($request->password) ;
         $data['email'] = $request->email;
         $img_path = null;
         if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
@@ -98,9 +94,12 @@ class DonorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Donor $donor)
     {
-        //
+        
+        return view('dashboard.pages.donors.edit',[
+            'donor' => $donor,
+        ]);
     }
 
     /**
@@ -110,9 +109,29 @@ class DonorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Donor $donor)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'phone' => 'required|numeric',
+            'logo' => 'required',
+            'email' => 'required',
+        ]);
+        //  return $request;
+        $data = [];
+        $data['name'] = $request->name;
+        $data['phone'] = $request->phone;
+        $data['email'] = $request->email;
+        $img_path = null;
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            $img = $request->file('logo');
+            $img_path = $img->store('/Donors', 'assets');
+        }
+        $data['logo'] = $img_path;        
+        $donor->update($data);
+        toastr()->success(__('تم تعديل البيانات بنجاح'));
+
+        return redirect()->route('donors.index') ;
     }
 
     /**
@@ -121,8 +140,10 @@ class DonorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Donor $donor)
     {
-        //
+        $donor->delete();
+        toastr()->success(__('تم حذف البيانات بنجاح'));
+        return redirect()->route('donors.index') ;
     }
 }

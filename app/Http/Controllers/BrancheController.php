@@ -60,7 +60,6 @@ class BrancheController extends Controller
             'address' => 'required|string',
             'phoneNumber' => 'required|numeric',
             'email' => 'required',
-            'number_of_employe' => 'required|numeric',
             'manager_name' => 'required|string',
             'city_id' => 'required',
         ]);
@@ -69,7 +68,6 @@ class BrancheController extends Controller
         $data['address'] = $request->address;
         $data['phoneNumber'] = $request->phoneNumber;
         $data['email'] = $request->email;
-        $data['number_of_employe'] = $request->number_of_employe;
         $data['manager_name'] = $request->manager_name;
         $data['city_id'] = $request->city_id;
         
@@ -117,7 +115,6 @@ class BrancheController extends Controller
             'address' => 'required|string',
             'phoneNumber' => 'required|numeric',
             'email' => 'required',
-            'number_of_employe' => 'required|numeric',
             'manager_name' => 'required|string',
             'city_id' => 'required',
         ]);
@@ -126,7 +123,6 @@ class BrancheController extends Controller
         $data['address'] = $request->address;
         $data['phoneNumber'] = $request->phoneNumber;
         $data['email'] = $request->email;
-        $data['number_of_employe'] = $request->number_of_employe;
         $data['manager_name'] = $request->manager_name;
         $data['city_id'] = $request->city_id;
         

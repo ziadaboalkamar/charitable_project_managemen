@@ -48,7 +48,6 @@
                                                 <th>اسم الفرع</th>
                                                 <th>رقم الهاتف</th>
                                                 <th>البريد الالكتروني</th>
-                                                <th>رقم الموظف</th>
                                                 <th>اسم المدير</th>
                                                 <th>المدينة</th>
                                                 <th>العمليات</th>
@@ -152,11 +151,7 @@
                     name: 'email',
                     searchable: true
                 },
-                {
-                    data: 'number_of_employe',
-                    name: 'number_of_employe',
-                    searchable: true
-                },
+              
                 {
                     data: 'manager_name',
                     name: 'manager_name',

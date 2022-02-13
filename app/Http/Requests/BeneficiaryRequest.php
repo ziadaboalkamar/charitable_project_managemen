@@ -32,15 +32,13 @@ class BeneficiaryRequest extends FormRequest
                     'thirdName' => 'required',
                     'lastName' => 'required',
                     'gender' => 'required',
-                    'id_number' => 'required|unique:beneficiaries',
-                    'PhoneNumber' => 'required|numeric',
-                    'family_member' => 'required|numeric',
+                    'id_number' => 'required|unique:beneficiaries|numeric',
+                    'PhoneNumber' => 'required|numeric|unique:beneficiaries',
+                    'family_member' => 'required',
                     'branch_id' => 'required',
-                    'project_id' => 'nullable',
                     'city_id' => 'required',
                     'address' => 'required',
                     'maritial' => 'required',
-                    'status_id' => 'required',
                 ];
             }
             case 'PUT':
@@ -52,15 +50,13 @@ class BeneficiaryRequest extends FormRequest
                     'thirdName' => 'required',
                     'lastName' => 'required',
                     'gender' => 'required',
-                    'id_number' => 'required|unique:beneficiaries,id_number'.$this->route()->beneficiarei->id,
+                    'id_number' => 'required|unique:beneficiaries,id_number,'.$this->route()->beneficiarei->id,
                     'PhoneNumber' => 'required|numeric',
                     'family_member' => 'required|numeric',
                     'branch_id' => 'required',
-                    'project_id' => 'required',
                     'city_id' => 'required',
                     'address' => 'required',
                     'maritial' => 'required',
-                    'status_id' => 'required',
                 ];
             }
             default: break;

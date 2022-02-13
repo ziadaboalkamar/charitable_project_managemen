@@ -42,8 +42,8 @@
                                         @csrf
                                         @method('put')
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">العنوان</label>
-                                            <input type="text" name="address" value="{{ old('address',$branch->address) }}" class="form-control credit-card-mask" placeholder="العنوان"  />
+                                            <label for="credit-card">اسم الفرع</label>
+                                            <input type="text" name="address" value="{{ old('address',$branch->address) }}" class="form-control credit-card-mask" placeholder="اسم الفرع"  />
                                             @error('address')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
 
@@ -57,11 +57,7 @@
                                             <input type="email" name="email" value="{{ old('email',$branch->email) }}" class="form-control credit-card-mask" placeholder="البريد الالكتروني"  />
                                             @error('email')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">رقم الموظف</label>
-                                            <input type="text" name="number_of_employe" value="{{ old('number_of_employe',$branch->number_of_employe) }}" class="form-control credit-card-mask" placeholder="رقم الموظف"  />
-                                            @error('number_of_employe')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
+                                       
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المدير</label>
                                             <input type="text" name="manager_name" value="{{ old('manager_name',$branch->manager_name) }}" class="form-control credit-card-mask" placeholder="اسم المدير"  />

@@ -42,8 +42,7 @@
                                         <tr>
                                             <th>الاسم</th>
                                             <th>رقم الهاتف</th>
-                                            <th>المدينة</th>
-                                            <th>صورة</th>
+                                            <th>الشعار</th>
                                             <th>البريد الالكتروني</th>
                                             <th>العمليات</th>
                                         </tr>
@@ -58,6 +57,35 @@
                             @csrf
                             <button type="submit"></button>
                         </form>
+                        @foreach ($donors as $donor)
+                                       <!-- Modal -->
+                        <div class="modal fade" id="delete{{ $donor->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"> حذف المؤسسة الداعمة <span class="text-primary">{{ $donor->name }}</span></h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('donors.destroy', $donor->id) }}" method="post">
+                                        {{ method_field('delete') }}
+                                        {{ csrf_field() }}
+                                        <div class="modal-body">
+                                            <h5>هل انت متاكد من حذف البيانات</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">اغلاق</button>
+                                            <button type="submit" class="btn btn-danger">حذف</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -106,7 +134,6 @@
             columns: [
                 {data: 'name', name:'name',searchable: true},
                 {data: 'phone',name:'phone',searchable: true},
-                {data: 'country',name:'country',searchable: true},
                 {data: 'logo',name:'logo',searchable: true},
                 {data: 'email',name:'email',searchable: false},
                 {data:''}
@@ -186,7 +213,7 @@
                             }) +
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
-                            '<a href="=donors/' + id + '/edit" class="dropdown-item">' +
+                            '<a href="donors/' + id + '/edit" class="dropdown-item">' +
                             feather.icons['archive'].toSvg({
                                 class: 'font-small-4 mr-50'
                             }) +

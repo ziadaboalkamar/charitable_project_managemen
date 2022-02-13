@@ -38,6 +38,7 @@
                                     <h4 class="card-title">اضافة مستفيد</h4>
                                 </div>
                                 <div class="card-body">
+                                    
                                     <form class="row" action="{{ route('beneficiareis.store') }}" method="POST" id="create_new">
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
@@ -84,7 +85,13 @@
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">عدد افراد الاسرة</label>
-                                            <input type="text" name="family_member" value="{{ old('family_member') }}" class="form-control credit-card-mask" placeholder="عدد افراد الاسرة"  />
+                                            <select name="family_member" class="form-control">
+                                                <option value="" selected disabled>اختر العدد</option>
+                                                @foreach ($family_members as $family_member)
+                                                <option value="{{ $family_member }}" {{ old('family_member') == $family_member ? 'selected' : null }}>{{ $family_member }}</option>
+                                                @endforeach
+                                            </select>
+                                           
                                             @error('family_member')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
@@ -99,18 +106,7 @@
                                                 @error('branch_id')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <div class="form-group">
-                                                <label for="basicInput">اسم المشروع</label>
-                                                <select name="project_id" class="form-control">
-                                                    <option value="" selected disabled>اختر المشروع</option>
-                                                    @foreach ($projects as $project)
-                                                    <option value="{{ $project->id }}"> {{ $project->company_name }}</option>                                                      
-                                                    @endforeach
-                                                </select>
-                                                @error('project_id')<span class="text-danger">{{ $message }}</span>@enderror
-                                            </div>
-                                        </div>
+                                       
  
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <div class="form-group">
@@ -130,18 +126,15 @@
                                             @error('address')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">maritial</label>
-                                            <input type="text" name="maritial" value="{{ old('maritial') }}" class="form-control credit-card-mask" placeholder="maritial"  />
+                                            <label for="credit-card">الحالة الاجتماعية</label>
+                                            <select name="maritial" class="form-control">
+                                                <option value="اعزب" {{ old('maritial') == 1 ? 'selected' : null }}>اعزب</option>
+                                                <option value="متزوج" {{ old('maritial') == 2 ? 'selected' : null }}>متزوج</option>
+                                                <option value="مطلق" {{ old('maritial') == 3 ? 'selected' : null }}>مطلق</option>
+                                            </select>
                                             @error('maritial')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="status">الحالة</label>
-                                            <select name="status_id" class="form-control">
-                                                <option value="1" {{ old('status_id') == 1 ? 'selected' : null }}>فعال</option>
-                                                <option value="0" {{ old('status_id') == 0 ? 'selected' : null }}>غير فعال</option>
-                                            </select>
-                                            @error('status_id')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
+
                                         
                                         <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                                             <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ</button>

@@ -41,6 +41,9 @@ class BeneficiaryController extends Controller
                 ->editColumn('city_name', function (Beneficiary $beneficiary) {
                     return $beneficiary->cities->city_name;
                 })
+                ->editColumn('active', function (Beneficiary $beneficiary) {
+                    return $beneficiary->getActive();
+                })
                 ->editColumn('branch_name', function (Beneficiary $beneficiary) {
                     return $beneficiary->branchs->address;
                 })
@@ -63,11 +66,16 @@ class BeneficiaryController extends Controller
      */
     public function create()
     {
+        for($i = 1 ; $i < 16 ; $i++)
+        {
+            $n[] = $i;
+        }
         return view('dashboard.pages.beneficiareis.create',[
             'cities' => City::get(),
             'projects' => Project::get(),
             'brnches' => Branches::get(),
             'getPossibleGender' =>BeneficiaryController::getPossibleGender(),
+            'family_members' => $n,
         ]);
     }
 
@@ -77,7 +85,7 @@ class BeneficiaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BeneficiaryRequest $request)
     {
         $data = [];
         $data['firstName'] = $request->firstName;
@@ -89,11 +97,10 @@ class BeneficiaryController extends Controller
         $data['PhoneNumber'] = $request->PhoneNumber;
         $data['family_member'] = $request->family_member;
         $data['branch_id'] = $request->branch_id;
-        $data['project_id'] = $request->project_id;
         $data['city_id'] = $request->city_id;
         $data['address'] = $request->address;
         $data['maritial'] = $request->maritial;
-        $data['status_id'] = $request->status_id;
+        $data['status_id'] = 1;
         
         Beneficiary::create($data);
         toastr()->success(__('تم حفظ البيانات بنجاح'));
@@ -118,9 +125,20 @@ class BeneficiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Beneficiary $beneficiarei)
     {
-        //
+        for($i = 1 ; $i < 16 ; $i++)
+        {
+            $n[] = $i;
+        }
+        return view('dashboard.pages.beneficiareis.edit',[
+            'cities' => City::get(),
+            'projects' => Project::get(),
+            'brnches' => Branches::get(),
+            'getPossibleGender' => BeneficiaryController::getPossibleGender(),
+            'beneficiary' => $beneficiarei,
+            'family_members' => $n,
+        ]);
     }
 
     /**
@@ -130,9 +148,26 @@ class BeneficiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BeneficiaryRequest $request, Beneficiary $beneficiarei)
     {
-        //
+        $data = [];
+        $data['firstName'] = $request->firstName;
+        $data['secondName'] = $request->secondName;
+        $data['thirdName'] = $request->thirdName;
+        $data['lastName'] = $request->lastName;
+        $data['gender'] = $request->gender;
+        $data['id_number'] = $request->id_number;
+        $data['PhoneNumber'] = $request->PhoneNumber;
+        $data['family_member'] = $request->family_member;
+        $data['branch_id'] = $request->branch_id;
+        $data['city_id'] = $request->city_id;
+        $data['address'] = $request->address;
+        $data['maritial'] = $request->maritial;
+        
+        $beneficiarei->update($data);
+        toastr()->success(__('تم تعديل البيانات بنجاح'));
+
+        return redirect()->route('beneficiareis.index') ;        
     }
 
     /**
@@ -141,8 +176,22 @@ class BeneficiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+     public function updateStatus(Request $request)
+     {
+        $b = Beneficiary::findorfail($request->id);
+            $b->update([
+                'status_id'=>$request->status_id
+            ]);
+        toastr()->success(__('تم تعديل البيانات بنجاح'));
+
+        return redirect()->route('beneficiareis.index') ;   
+     }
+    public function destroy(Beneficiary $beneficiarei)
     {
-        //
+        $beneficiarei->delete();
+        toastr()->success(__('تم حذف البيانات بنجاح'));
+
+        return redirect()->route('beneficiareis.index') ;   
     }
 }

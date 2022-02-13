@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beneficiary;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -117,9 +118,15 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        $city->delete();
-        toastr()->success(__('تم حذف البيانات بنجاح'));
-
-        return redirect()->route('cities.index') ;
+        if(count($city->Beneficiaries) > 0){
+            toastr()->error(__('لايمكنك حذف هذه المدينة'));
+            return redirect()->route('cities.index') ;
+        }else{
+            $city->delete();
+            toastr()->success(__('تم حذف البيانات بنجاح'));
+    
+            return redirect()->route('cities.index') ;
+        }
+       
     }
 }

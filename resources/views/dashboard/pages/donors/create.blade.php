@@ -12,14 +12,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">اضافة متبرع</h2>
+                            <h2 class="content-header-title float-left mb-0">اضافة مؤسسة داعمة</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">الرئيسية</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">المتبرع</a>
+                                    <li class="breadcrumb-item"><a href="#">المؤسسةالداعمة</a>
                                     </li>
-                                    <li class="breadcrumb-item active">اضافة متبرع
+                                    <li class="breadcrumb-item active">اضافة مؤسسة داعمة
                                     </li>
                                 </ol>
                             </div>
@@ -35,14 +35,14 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">اضافة متبرع</h4>
+                                    <h4 class="card-title">اضافة مؤسسة داعمة</h4>
                                 </div>
                                 <div class="card-body">
                                     <form class="row" action="{{ route('donors.store') }}" method="POST" id="create_new" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">اسم المتبرع</label>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control credit-card-mask" placeholder="اسم المتبرع"  />
+                                            <label for="credit-card">اسم المؤسسةالداعمة</label>
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control credit-card-mask" placeholder="اسم المؤسسة الداعمة"  />
                                             @error('name')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
 
@@ -51,26 +51,11 @@
                                             <input type="text" name="phone" value="{{ old('phone') }}" class="form-control credit-card-mask" placeholder="رقم الهاتف"  />
                                             @error('phone')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
-                                      
+                                       
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">المنطقة</label>
-                                            <input type="text" name="country" value="{{ old('country') }}" class="form-control credit-card-mask" placeholder="اسم المنطقة"  />
-                                            @error('country')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">صورة</label>
-                                            <input type="file" name="logo" class="form-control credit-card-mask" placeholder="صورة"  />
+                                            <label for="credit-card">الشعار</label>
+                                            <input type="file" name="logo" class="form-control credit-card-mask" placeholder="الشعار"  />
                                             @error('logo')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">صورة</label>
-                                            <input type="text" name="username" value="{{ old('username') }}" class="form-control credit-card-mask" placeholder="اسم المستخدم"  />
-                                            @error('username')<span class="text-danger">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
-                                            <label for="credit-card">كلمة المرور</label>
-                                            <input type="password" name="password" value="{{ old('password') }}" class="form-control credit-card-mask" placeholder="كلمة المرور"  />
-                                            @error('password')<span class="text-danger">{{ $message }}</span>@enderror
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">البريد الالكتروني</label>

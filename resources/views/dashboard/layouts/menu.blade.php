@@ -55,10 +55,10 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المؤسسات</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">الجمعية الرئيسية</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{ route('main-branches.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">كافة المؤسسة</span></a>
-                    <li><a class="d-flex align-items-center" href="{{ route('main-branches.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء مؤسسة</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('main-branches.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">كافة الجمعيات</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('main-branches.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء جمعية</span></a>
                     </li>
                    
                 </ul>
@@ -87,10 +87,10 @@
                    
                 </ul>
             </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المتبرعين</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">المؤسسات الداعمة</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{ route('donors.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">كافة المتبرعين</span></a>
-                    <li><a class="d-flex align-items-center" href="{{ route('donors.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء متبرع</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('donors.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">كافة المؤسسات</span></a>
+                    <li><a class="d-flex align-items-center" href="{{ route('donors.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">انشاء مؤسسة</span></a>
                     </li>
                 </ul>
             </li>
