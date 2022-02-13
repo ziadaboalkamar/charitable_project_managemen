@@ -10,7 +10,7 @@ class ProjectAttachment extends Model
     use HasFactory;
     protected  $table = 'project_attachment';
     protected $fillable = [
-        'id', 'project_id ','category_id', 'file','url','add_by','created_at','updated_at'
+        'id', 'project_id','category_id', 'file','url','add_by','created_at','updated_at'
     ];
 
 

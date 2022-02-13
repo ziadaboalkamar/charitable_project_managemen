@@ -23,7 +23,7 @@
                         <div class="content-header-left col-md-9 col-12 mb-2">
                             <div class="row breadcrumbs-top">
                                 <div class="col-12">
-                                    <h2 class="content-header-title float-left mb-0">{{__('dashboard.users')}}</h2>
+                                    <h2 class="content-header-title float-left mb-0">{{__('المشاريع الخيرية')}}</h2>
 
                                 </div>
                             </div>
@@ -56,6 +56,7 @@
                                             <th>تاريخ بداء التنفيذ</th>
                                             <th>العمليات</th>
 
+
                                         </tr>
                                         </thead>
                                     </table>
@@ -65,7 +66,7 @@
                             <!-- list section end -->
                         </section>
                         <!-- users list ends -->
-                        <form action="/users/create" method="get" class="d-none" id="create_new">
+                        <form action="{{route('projects.create')}}" method="get" class="d-none" id="create_new">
                             @csrf
                             <button type="submit"></button>
                         </form>
@@ -117,13 +118,18 @@
             columns: [
                 {data: 'company_name', name:'company_name',searchable: true},
                 {data: 'project_name',name:'project_name',searchable: true},
-                {data: 'grant_date',name:'grant_date',searchable: true},
+                {data: 'grant_date',name:'grant_date',searchable: false},
                 {data: 'category_id',name:'category_id',searchable: false},
                 {data: 'grant_value',name:'grant_value',searchable: false},
                 {data: 'start_date',name:'start_date',searchable: false},
-                {data:''}
+                {data: ''}
+
+
+
+
             ],
-            order: [5, 'desc'],
+
+            order: [1, 'desc'],
             buttons: [
                 {
                     extend: 'collection',
@@ -181,34 +187,34 @@
                         $(node).removeClass('btn-secondary');
                     }
                 }
+                ,
             ],
-            // Actions
-            targets: -1,
-            orderable: false,
-            render: function (data, type, full, meta) {
-                return (
-                    '<div class="btn-group">' +
-                    '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
-                    feather.icons['more-vertical'].toSvg({class: 'font-small-4'}) +
-                    '</a>' +
-                    '<div class="dropdown-menu dropdown-menu-right">' +
-                    '<a href="' +
-                    userView +
-                    '" class="dropdown-item">' +
-                    feather.icons['file-text'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Details</a>' +
-                    '<a href="' +
-                    userEdit +
-                    '" class="dropdown-item">' +
-                    feather.icons['archive'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Edit</a>' +
-                    '<a href="javascript:;" class="dropdown-item delete-record">' +
-                    feather.icons['trash-2'].toSvg({class: 'font-small-4 mr-50'}) +
-                    'Delete</a></div>' +
-                    '</div>' +
-                    '</div>'
-                );
-            }
+            columnDefs:[
+                {
+                    // Actions
+                    targets: -1,
+                    orderable: false,
+                    render: function (data, type, full, meta) {
+                        var id = full['id'];
+                        return (
+                            '<div class="btn-group">' +
+                            '<a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">' +
+                            feather.icons['more-vertical'].toSvg({class: 'font-small-4'}) +
+                            '</a>' +
+                            '<div class="dropdown-menu dropdown-menu-right">' +
+                            '<a href="projects/edit/' + id + '" class="dropdown-item">' +
+                            feather.icons['archive'].toSvg({class: 'font-small-4 mr-50'}) +
+                            'Edit</a>' +
+                            '<a href="projects/delete/' + id + '" class="dropdown-item delete-record">' +
+                            feather.icons['trash-2'].toSvg({class: 'font-small-4 mr-50'}) +
+                            'Delete</a></div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            ]
+
 
         });
 

@@ -40,7 +40,7 @@
                                     <h4 class="card-title">اضافة مشروع</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="row" action="" method="post">
+                                    <form class="row invoice-repeater" action="{{route('projects.store')}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المؤسسة</label>
@@ -64,9 +64,14 @@
                                         <!-- Basic -->
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label>نوع المنحة</label>
-                                            <select name="category_id " class="select2 form-control form-control-lg">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
+                                            <select name="category_id" class="select2 form-control form-control-lg">
+                                                <option value=""> --- </option>
+                                                @if($categories && $categories -> count() > 0)
+                                                @foreach($categories as $category)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+
+                                                    @endforeach
+                                                @endif
 
                                             </select>
                                             @error('category_id')<span class="text-danger">{{ $message }}</span>@enderror
@@ -81,8 +86,13 @@
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label>العملة</label>
                                             <select name="currency_id" class="select2 form-control form-control-lg">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
+                                                <option value=""> --- </option>
+                                                @if($currencies && $currencies -> count() > 0)
+                                                    @foreach($currencies as $currency)
+                                                        <option value="{{$currency->id}}">{{$currency->name}}</option>
+
+                                                    @endforeach
+                                                @endif
 
                                             </select>
                                             @error('currency_id')<span class="text-danger">{{ $message }}</span>@enderror
@@ -97,12 +107,74 @@
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="prefix">الاداريات</label>
                                             <input type="text" name="managerial_fees" class="form-control prefix-mask" id="prefix" />
+                                            @error('managerial_fees')<span class="text-danger">{{ $message }}</span>@enderror
+
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="custom-delimiters">تاريخ بداء التنفيذ</label>
                                             <input type="date" name="start_date" class="form-control custom-delimiter-mask" placeholder="" id="custom-delimiters" />
                                             @error('start_date')<span class="text-danger">{{ $message }}</span>@enderror
 
+                                        </div>
+                                        <div class="col-xl-12 col-md-12 col-sm-12 mb-2">
+                                            <div data-repeater-list="invoice">
+                                                <div data-repeater-item>
+                                                    <div class="row d-flex align-items-end">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="category_attachment_id">نوع الملف</label>
+                                                                <select name="category_attachment_id" class="form-control form-control-lg">
+                                                                    <option value=""> --- </option>
+                                                                    @if($categories_attachment && $categories_attachment -> count() > 0)
+                                                                        @foreach($categories_attachment as $category_attachment)
+                                                                            <option value="{{$category_attachment->id}}">{{$category_attachment->name}}</option>
+
+                                                                        @endforeach
+                                                                    @endif
+
+                                                                </select>
+                                                                @error('category_attachment_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                                            </div></div>
+
+                                                        <div class="col-md-3">  <div class="form-group">
+                                                                <label for="customFile">ارفاق رابط</label>
+                                                                <input type="url" name="url" class="form-control prefix-mask" id="basicInputFile" />
+
+                                                                @error('url')<span class="text-danger">{{ $message }}</span>@enderror
+
+                                                            </div></div>
+                                                        <div class="col-md-3"><div class="form-group">
+                                                                <label for="customFile">ارفاق ملف</label>
+                                                                <input type="file" name="file" value="null" class="form-control credit-card-mask" placeholder="المرفق" id="credit-card" />
+                                                                @error('file')<span class="text-danger">{{ $message }}</span>@enderror
+
+                                                            </div></div>
+                                                        <div class="col-md-2 col-12 mb-50">
+                                                            <div class="form-group">
+                                                                <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                                                    <i data-feather="x" class="mr-25"></i>
+                                                                    <span>Delete</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <button class="btn btn-icon btn-primary" type="button" data-repeater-create>
+                                                        <i data-feather="plus" class="mr-25"></i>
+                                                        <span>Add New</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                            <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ</button>
+                                            <button type="reset" class="btn btn-outline-secondary">اغلاق</button>
                                         </div>
                                     </form>
                                     </div>
@@ -129,4 +201,10 @@
 
     <!-- BEGIN: Page JS-->
     <script src="{{asset("app-assets/js/scripts/forms/form-select2.js")}}"></script>
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('app-assets/js/scripts/forms/form-repeater.js')}}"></script>
+    <!-- END: Page JS-->
+    <script src="{{asset('app-assets/vendors/js/forms/repeater/jquery.repeater.min.js')}}"></script>
+
 @stop

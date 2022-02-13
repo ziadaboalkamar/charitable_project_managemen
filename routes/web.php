@@ -31,9 +31,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/projects', function () {
-    return view('dashboard.pages.main_branches.create');
-});
+
 
 
 
@@ -50,11 +48,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/users/update/{id}',[UserController::class,'update'])->name('users.update');
     Route::get('/users/delete/{id}',[UserController::class,'destroy'])->name('users.destroy');
 
-
-
-
 //    end user
-
 
     Route::resource('main-branches', MainBrancheController::class);
     Route::resource('cities', CityController::class);
@@ -63,7 +57,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 //    start project
     Route::get('/projects',[ProjectController::class,'index'])->name('projects.index');
-    Route::get('/projects/create',[ProjectController::class,'create'])->name('projects.create');}
+    Route::get('/projects/create',[ProjectController::class,'create'])->name('projects.create');
+    Route::post('/projects/store',[ProjectController::class,'store'])->name('projects.store');
+    Route::get('/projects/edit/{id}',[ProjectController::class,'edit'])->name('projects.edit');
+    Route::get('/projects/update/{id}',[ProjectController::class,'update'])->name('projects.update');
+
+
 //    end project
+
+}
+
     );
 

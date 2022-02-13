@@ -46,6 +46,7 @@ class UserController extends Controller
         try {
             $roles = Role::all();
             $branches = Branches::all();
+
             return view('dashboard.pages.users.create',compact('roles','branches'));
         }catch (\Exception $ex){
 
