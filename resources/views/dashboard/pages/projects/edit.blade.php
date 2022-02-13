@@ -52,8 +52,17 @@
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المؤسسة</label>
-                                            <input type="text" value="{{$projects->company_name}}" name="company_name" class="form-control credit-card-mask" placeholder="اسم المؤسسة" id="credit-card" />
-                                            @error('company_name')<span class="text-danger">{{ $message }}</span>@enderror
+                                            <select name="main_branch_id" class="select2 form-control form-control-lg">
+                                                <option value=""> --- </option>
+                                                @if($mainBranches && $mainBranches -> count() > 0)
+                                                    @foreach($mainBranches as $mainBranch)
+                                                        <option @if($mainBranch->id == $projects->main_branch_id ) selected @endif value="{{$mainBranch->id}}">{{$mainBranch->name}}</option>
+
+                                                    @endforeach
+                                                @endif
+
+                                            </select>
+                                            @error('main_branch_id')<span class="text-danger">{{ $message }}</span>@enderror
 
                                         </div>
 
@@ -140,6 +149,78 @@
                                                                 <!-- file manager app content starts -->
                                                                 <div class="file-manager-main-content">
                                                                     <!-- search area start -->
+                                                                    <div class="file-manager-content-header d-flex justify-content-between align-items-center">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="sidebar-toggle d-block d-xl-none float-left align-middle ml-1">
+                                                                                <i data-feather="menu" class="font-medium-5"></i>
+                                                                            </div>
+                                                                            <div class="input-group input-group-merge shadow-none m-0 flex-grow-1">
+                                                                                <div class="input-group-prepend">
+                                            <span class="input-group-text border-0">
+                                                <i data-feather="search"></i>
+                                            </span>
+                                                                                </div>
+                                                                                <input type="text" class="form-control files-filter border-0 bg-transparent" placeholder="Search" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="file-actions">
+                                                                                <i data-feather="arrow-down-circle" class="font-medium-2 cursor-pointer d-sm-inline-block d-none mr-50"></i>
+                                                                                <i data-feather="trash" class="font-medium-2 cursor-pointer d-sm-inline-block d-none mr-50"></i>
+                                                                                <i data-feather="alert-circle" class="font-medium-2 cursor-pointer d-sm-inline-block d-none" data-toggle="modal" data-target="#app-file-manager-info-sidebar"></i>
+                                                                                <div class="dropdown d-inline-block">
+                                                                                    <i class="font-medium-2 cursor-pointer" data-feather="more-vertical" role="button" id="fileActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    </i>
+                                                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="fileActions">
+                                                                                        <a class="dropdown-item" href="javascript:void(0);">
+                                                                                            <i data-feather="move" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Open with</span>
+                                                                                        </a>
+                                                                                        <a class="dropdown-item d-sm-none d-block" href="javascript:void(0);" data-toggle="modal" data-target="#app-file-manager-info-sidebar">
+                                                                                            <i data-feather="alert-circle" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">More Options</span>
+                                                                                        </a>
+                                                                                        <a class="dropdown-item d-sm-none d-block" href="javascript:void(0);">
+                                                                                            <i data-feather="trash" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Delete</span>
+                                                                                        </a>
+                                                                                        <div class="dropdown-divider"></div>
+                                                                                        <a class="dropdown-item" href="javascript:void(0);">
+                                                                                            <i data-feather="plus" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Add shortcut</span>
+                                                                                        </a>
+                                                                                        <a class="dropdown-item" href="javascript:void(0);">
+                                                                                            <i data-feather="folder-plus" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Move to</span>
+                                                                                        </a>
+                                                                                        <a class="dropdown-item" href="javascript:void(0);">
+                                                                                            <i data-feather="star" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Add to starred</span>
+                                                                                        </a>
+                                                                                        <a class="dropdown-item" href="javascript:void(0);">
+                                                                                            <i data-feather="droplet" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Change color</span>
+                                                                                        </a>
+                                                                                        <div class="dropdown-divider"></div>
+                                                                                        <a class="dropdown-item" href="javascript:void(0);">
+                                                                                            <i data-feather="download" class="cursor-pointer mr-50"></i>
+                                                                                            <span class="align-middle">Download</span>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="btn-group btn-group-toggle view-toggle ml-50" data-toggle="buttons">
+                                                                                <label class="btn btn-outline-primary p-50 btn-sm active">
+                                                                                    <input type="radio" name="view-btn-radio" data-view="grid" checked />
+                                                                                    <i data-feather="grid"></i>
+                                                                                </label>
+                                                                                <label class="btn btn-outline-primary p-50 btn-sm">
+                                                                                    <input type="radio" name="view-btn-radio" data-view="list" />
+                                                                                    <i data-feather="list"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <!-- search area ends here -->
 
                                                                     <div class="file-manager-content-body">
@@ -168,6 +249,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            @foreach($projectsAttachment as $project1)
                                                                             <div class="card file-manager-item folder">
                                                                                 <div class="custom-control custom-checkbox">
                                                                                     <input type="checkbox" class="custom-control-input" id="customCheck1" />
@@ -182,124 +264,26 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">Projects</p>
-                                                                                        <p class="card-text file-size mb-0">2gb</p>
-                                                                                        <p class="card-text file-date">01 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 21 hours ago</small>
+
+                                                                                        <div class="content-wrapper">
+                                                                                            <p class="card-text file-name mb-0">
+                                                                                                <a @if($project1->file) href="{{asset('assets/'.$project1->file)}}" @else href="{{asset($project1->url)}}" @endif>{{$project1->categoryAttachment->name}}</a></p>
+
+
+                                                                                        </div>
+
+                                                                                    @if($project1->file)
+                                                                                        @for($i = 1; $i < count(explode('.', $project1->file)); $i++)
+                                                                                    <small class="file-accessed text-muted">{{explode('.', $project1->file)[$i]}}</small>
+                                                                                        @endfor
+                                                                                    @endif
+                                                                                    @if($project1->url)
+                                                                                        <small class="file-accessed text-muted">url</small>
+                                                                                    @endif
+                                                                                    <small class="file-accessed text-muted"><a href="{{route('projects.delete.attachment',$project1->id)}}">حذف</a></small>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="card file-manager-item folder">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck2" />
-                                                                                    <label class="custom-control-label" for="customCheck2"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <i data-feather="folder"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">Design</p>
-                                                                                        <p class="card-text file-size mb-0">500mb</p>
-                                                                                        <p class="card-text file-date">05 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 18 hours ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card file-manager-item folder">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck3" />
-                                                                                    <label class="custom-control-label" for="customCheck3"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <i data-feather="folder"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">UI Kit</p>
-                                                                                        <p class="card-text file-size mb-0">200mb</p>
-                                                                                        <p class="card-text file-date">01 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 2 days ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card file-manager-item folder">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck4" />
-                                                                                    <label class="custom-control-label" for="customCheck4"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <i data-feather="folder"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">Documents</p>
-                                                                                        <p class="card-text file-size mb-0">50.3mb</p>
-                                                                                        <p class="card-text file-date">10 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 6 days ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card file-manager-item folder">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck5" />
-                                                                                    <label class="custom-control-label" for="customCheck5"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <i data-feather="folder"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">Videos</p>
-                                                                                        <p class="card-text file-size mb-0">354mb</p>
-                                                                                        <p class="card-text file-date">08 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 8 days ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card file-manager-item folder">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck6" />
-                                                                                    <label class="custom-control-label" for="customCheck6"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <i data-feather="folder"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">Styles</p>
-                                                                                        <p class="card-text file-size mb-0">32.2mb</p>
-                                                                                        <p class="card-text file-date">05 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 2 months ago</small>
-                                                                                </div>
-                                                                            </div>
+                                                                            @endforeach
                                                                             <div class="d-none flex-grow-1 align-items-center no-result mb-3">
                                                                                 <i data-feather="alert-circle" class="mr-50"></i>
                                                                                 No Results
@@ -307,81 +291,7 @@
                                                                         </div>
                                                                         <!-- /Folders Container Ends -->
 
-                                                                        <!-- Files Container Starts -->
-                                                                        <div class="view-container">
-                                                                            <h6 class="files-section-title mt-2 mb-75">Files</h6>
-                                                                            <div class="card file-manager-item file">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck7" />
-                                                                                    <label class="custom-control-label" for="customCheck7"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <img src="../../../app-assets/images/icons/jpg.png" alt="file-icon" height="35" />
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">Profile.jpg</p>
-                                                                                        <p class="card-text file-size mb-0">12.6mb</p>
-                                                                                        <p class="card-text file-date">23 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 3 hours ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card file-manager-item file">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck9" />
-                                                                                    <label class="custom-control-label" for="customCheck9"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <img src="../../../app-assets/images/icons/txt.png" alt="file-icon" height="35" />
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">notes.txt</p>
-                                                                                        <p class="card-text file-size mb-0">54kb</p>
-                                                                                        <p class="card-text file-date">01 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 43 minutes ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card file-manager-item file">
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customCheck10" />
-                                                                                    <label class="custom-control-label" for="customCheck10"></label>
-                                                                                </div>
-                                                                                <div class="card-img-top file-logo-wrapper">
-                                                                                    <div class="dropdown float-right">
-                                                                                        <i data-feather="more-vertical" class="toggle-dropdown mt-n25"></i>
-                                                                                    </div>
-                                                                                    <div class="d-flex align-items-center justify-content-center w-100">
-                                                                                        <img src="../../../app-assets/images/icons/json.png" alt="file-icon" height="35" />
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                    <div class="content-wrapper">
-                                                                                        <p class="card-text file-name mb-0">users.json</p>
-                                                                                        <p class="card-text file-size mb-0">200kb</p>
-                                                                                        <p class="card-text file-date">12 may 2019</p>
-                                                                                    </div>
-                                                                                    <small class="file-accessed text-muted">Last accessed: 1 hour ago</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="d-none flex-grow-1 align-items-center no-result mb-3">
-                                                                                <i data-feather="alert-circle" class="mr-50"></i>
-                                                                                No Results
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- /Files Container Ends -->
+
                                                                     </div>
                                                                 </div>
                                                                 <!-- file manager app content ends -->
@@ -544,61 +454,12 @@
                                                                 <!-- File Info Sidebar Ends -->
 
                                                                 <!-- File Dropdown Starts-->
-                                                                <div class="dropdown-menu dropdown-menu-right file-dropdown">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i data-feather="eye" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Preview</span>
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i data-feather="user-plus" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Share</span>
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i data-feather="copy" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Make a copy</span>
-                                                                    </a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i data-feather="edit" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Rename</span>
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#app-file-manager-info-sidebar">
-                                                                        <i data-feather="info" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Info</span>
-                                                                    </a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i data-feather="trash" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Delete</span>
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i data-feather="alert-circle" class="align-middle mr-50"></i>
-                                                                        <span class="align-middle">Report</span>
-                                                                    </a>
-                                                                </div>
+
+
+
                                                                 <!-- /File Dropdown Ends -->
 
-                                                                <!-- Create New Folder Modal Starts-->
-                                                                <div class="modal fade" id="new-folder-modal">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title">New Folder</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <input type="text" class="form-control" value="New folder" placeholder="Untitled folder" />
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-primary mr-1" data-dismiss="modal">Create</button>
-                                                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- /Create New Folder Modal Ends -->
+
 
                                                             </div>
                                                         </div>

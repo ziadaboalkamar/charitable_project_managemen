@@ -19,4 +19,9 @@ class ProjectAttachment extends Model
     ];
 
     public $timestamps = true;
+    public function categoryAttachment()
+    {
+        return $this->belongsTo(AttachmentCategory::class, 'category_id','id');
+    }
+
 }
