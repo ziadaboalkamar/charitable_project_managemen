@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeneficiariesProjectController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BrancheController;
 use App\Http\Controllers\CategoryOfProjectController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\MainBrancheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Models\BeneficiariesProject;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,7 @@ Route::resource('branches', BrancheController::class);
 Route::resource('category-of-projects', CategoryOfProjectController::class);
 Route::resource('donors', DonorController::class);
 Route::resource('beneficiareis', BeneficiaryController::class);
+Route::resource('beneficiareis-projects', BeneficiariesProjectController::class);
 Route::post('update_status', [BeneficiaryController::class, 'updateStatus'])->name('update_status');
 
 //    start user
