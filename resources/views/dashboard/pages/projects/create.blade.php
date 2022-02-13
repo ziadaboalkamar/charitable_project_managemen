@@ -44,7 +44,16 @@
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المؤسسة</label>
-                                            <input type="text" name="company_name" class="form-control credit-card-mask" placeholder="اسم المؤسسة" id="credit-card" />
+                                            <select name="main_branch_id" class="select2 form-control form-control-lg">
+                                                <option value=""> --- </option>
+                                                @if($mainBranches && $mainBranches -> count() > 0)
+                                                    @foreach($mainBranches as $mainBranch)
+                                                        <option value="{{$mainBranch->id}}">{{$mainBranch->name}}</option>
+
+                                                    @endforeach
+                                                @endif
+
+                                            </select>
                                             @error('company_name')<span class="text-danger">{{ $message }}</span>@enderror
 
                                         </div>
@@ -117,6 +126,11 @@
 
                                         </div>
                                         <div class="col-xl-12 col-md-12 col-sm-12 mb-2">
+
+                                                <h4 class="card-title">المرفقات</h4>
+
+                                        </div>
+                                        <div class="col-xl-12 col-md-12 col-sm-12 mb-2">
                                             <div data-repeater-list="invoice">
                                                 <div data-repeater-item>
                                                     <div class="row d-flex align-items-end">
@@ -136,7 +150,8 @@
                                                                 @error('category_attachment_id')<span class="text-danger">{{ $message }}</span>@enderror
                                                             </div></div>
 
-                                                        <div class="col-md-3">  <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
                                                                 <label for="customFile">ارفاق رابط</label>
                                                                 <input type="url" name="url" class="form-control prefix-mask" id="basicInputFile" />
 

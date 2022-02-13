@@ -35,14 +35,15 @@ class ProjectController extends Controller
         $currencies = Currency::all();
         $attachments = ProjectAttachment::all();
         $categories_attachment = AttachmentCategory::all();
+        $mainBranches = MainBranche::all();
 
-        return view('dashboard.pages.projects.create',compact('categories','categories_attachment','attachments','currencies'));
+        return view('dashboard.pages.projects.create',compact('categories','mainBranches','categories_attachment','attachments','currencies'));
     }
     public function store(Request $request){
 
         try {
             $project = Project::insertGetId([
-                'company_name' => $request->company_name,
+                'main_branch_id' => $request->main_branch_id,
                 'project_name' => $request->project_name,
                 'grant_date' => $request->grant_date,
                 'category_id' => $request->category_id,
@@ -57,9 +58,11 @@ class ProjectController extends Controller
 
             for ($i=0;$i<count($attachment_array);$i++){
                 $file_attachment = null;
-                if ($attachment_array[$i]['file']) {
+                if (isset($attachment_array[$i]['file'])) {
                     $file_attachment = $attachment_array[$i]['file'];
                     $file_attachment_path = $file_attachment->store('/Attachment_Project', 'assets');
+                }else{
+                    $file_attachment_path = null;
                 }
                 ProjectAttachment::create([
                     'project_id' =>$project,
@@ -75,7 +78,8 @@ class ProjectController extends Controller
             return redirect()->route('projects.index');
 
         }catch (\Exception $ex){
-          return $ex;
+            toastr()->error(__('يوجد خطاء ما'));
+            return redirect()->route('projects.index');
         }
     }
     public function edit($id){

@@ -116,7 +116,7 @@
                 url: '{{ route('projects.index') }}',
             },
             columns: [
-                {data: 'company_name', name:'company_name',searchable: true},
+                {data: 'main_branch_id', name:'main_branch_id',searchable: true},
                 {data: 'project_name',name:'project_name',searchable: true},
                 {data: 'grant_date',name:'grant_date',searchable: false},
                 {data: 'category_id',name:'category_id',searchable: false},
