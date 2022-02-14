@@ -31,7 +31,7 @@
                         <div class="content-header-left col-md-9 col-12 mb-2">
                             <div class="row breadcrumbs-top">
                                 <div class="col-12">
-                                    <h2 class="content-header-title float-left mb-0">المستفيدين</h2>
+                                    <h2 class="content-header-title float-left mb-0">القسائم الشرائية</h2>
 
                                 </div>
                             </div>
@@ -45,15 +45,11 @@
                                     <table class="project-list-table table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>اسم المشروع</th>
                                                 <th>اسم المستفيد</th>
-                                                <th>اسم الفرع</th>
-                                                <th>اسم المتلقي</th>
-                                                <th>الحالة</th>
-                                                <th>عدد افراد الاسرة</th>
-                                                <th>أضيف من قبل</th>
-                                                <th>تاريخ التسليم</th>
-                                                <th>الموظف الذي تم تسليمه</th>
+                                                <th>اسم المشروع</th>
+                                                <th>السعر</th>
+                                                <th>محتوى القسيمة</th>
+                                                <th>ملاحظة</th>
                                                 <th>العمليات</th>
                                             </tr>
                                         </thead>
@@ -62,45 +58,40 @@
                             </div>
                             <!-- list section end -->
                         </section>
-                        <form action="{{ route('beneficiareis-projects.create') }}" method="get" class="d-none"
+                        <form action="{{ route('vawtchers.create') }}" method="get" class="d-none"
                             id="create_new">
                             @csrf
                             <button type="submit"></button>
                         </form>
-                        @foreach ($beneficiariesProjects as $beneficiariesProject)
-                            <!-- Modal -->
-                            <div class="modal fade" id="delete{{ $beneficiariesProject->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">حذف الفرع <span
-                                                    class="text-primary"></span>
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{ route('beneficiareis-projects.destroy', $beneficiariesProject->id) }}"
-                                            method="post">
-                                            {{ method_field('delete') }}
-                                            {{ csrf_field() }}
-                                            <div class="modal-body">
-                                                {{-- <input type="hidden" name="id" value="{{ $section->id }}"> --}}
-                                                <h5>هل انت متاكد من حذف البيانات</h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">{{ __('Close') }}</button>
-                                                <button type="submit" class="btn btn-danger">{{ __('submit') }}</button>
-                                            </div>
-                                        </form>
+                        @foreach ($vawtchers as $vawtcher)
+                        <!-- Modal -->
+                        <div class="modal fade" id="delete{{ $vawtcher->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">  حذف القسيمة الشرائية <span class="text-primary"></span></h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
+                                    <form action="{{ route('vawtchers.destroy', $vawtcher->id) }}" method="post">
+                                        {{ method_field('delete') }}
+                                        {{ csrf_field() }}
+                                        <div class="modal-body">
+                                            <h5>هل انت متاكد من حذف البيانات</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">اغلاق</button>
+                                            <button type="submit" class="btn btn-danger">حذف</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            {{-- @include('dashboard.pages.beneficiareis.updateStatus') --}}
-                        @endforeach
+                        </div>
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -142,58 +133,38 @@
                 "url": "{{ asset('app-assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('beneficiareis-projects.index') }}',
+                url: '{{ route('vawtchers.index') }}',
             },
             columns: [{
+                    data: 'user_id',
+                    name: 'user_id',
+                    searchable: true
+                },
+                {
                     data: 'project_id',
                     name: 'project_id',
                     searchable: true
                 },
                 {
-                    data: 'beneficiary_name',
-                    name: 'beneficiary_name',
+                    data: 'ammount',
+                    name: 'ammount',
                     searchable: true
                 },
                 {
-                    data: 'branch_name',
-                    name: 'branch_name',
+                    data: 'text',
+                    name: 'text',
                     searchable: true
                 },
                 {
-                    data: 'recever_name',
-                    name: 'recever_name',
-                    searchable: true
-                },
-                {
-                    data: 'status_id',
-                    name: 'status_id',
-                    searchable: true
-                },
-                {
-                    data: 'family_member_count',
-                    name: 'family_member_count',
-                    searchable: true
-                },
-                {
-                    data: 'add_by',
-                    name: 'add_by',
-                    searchable: true
-                },
-                {
-                    data: 'delivery_date',
-                    name: 'delivery_date',
-                    searchable: true
-                },
-                {
-                    data: 'employee_who_delivered',
-                    name: 'employee_who_delivered',
+                    data: 'note',
+                    name: 'note',
                     searchable: true
                 },
                 {
                     data: ''
                 }
             ],
-            order: [0, 'desc'],
+            order: [2, 'desc'],
             buttons: [{
                     extend: 'collection',
                     className: 'btn btn-outline-secondary dropdown-toggle mr-2 mt-50',
@@ -289,7 +260,7 @@
                             }) +
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
-                            '<a href="beneficiareis-projects/' + id + '/edit" class="dropdown-item">' +
+                            '<a href="vawtchers/' + id + '/edit" class="dropdown-item">' +
                             feather.icons['archive'].toSvg({
                                 class: 'font-small-4 mr-50'
                             }) +
@@ -299,12 +270,7 @@
                             feather.icons['trash-2'].toSvg({
                                 class: 'font-small-4 mr-50'
                             }) +
-                            'Delete</a>'+ '<a href="javascript:void()" class="dropdown-item" data-toggle="modal"' +
-                            ' data-target="#update_status' + id + '">' +
-                            feather.icons['trash-2'].toSvg({
-                                class: 'font-small-4 mr-50'
-                            }) +
-                            'update_status</a> </div>' +
+                            'Delete</a></div>' +
                             '</div>' +
                             '</div>'
                         );

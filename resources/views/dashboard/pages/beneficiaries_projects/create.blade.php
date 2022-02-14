@@ -43,10 +43,10 @@
                                         @csrf
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المشروع</label>
-                                            <select name="branch_id" class="form-control">
+                                            <select name="project_id" class="form-control">
                                                 <option value="" selected disabled>اختر المشروع</option>
                                                 @foreach ($projects as $project)
-                                                <option value="{{ $project->id }}"> {{ $project->company_name }}</option>                                                      
+                                                <option value="{{ $project->id }}" {{ old('project_id') == $project->id ? 'selected' : null }}> {{ $project->company_name }}</option>                                                      
                                                 @endforeach
                                             </select>
                                             @error('project_id')<span class="text-danger">{{ $message }}</span>@enderror
@@ -54,9 +54,9 @@
                                         <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
                                             <label for="credit-card">اسم المستفيد</label>
                                             <select name="beneficiary_id" class="form-control">
-                                                <option value="" selected disabled>اختر الفرع</option>
+                                                <option value="" selected disabled>اختر المستفيد</option>
                                                 @foreach ($beneficiaries as $beneficiarie)
-                                                <option value="{{ $beneficiarie->id }}"> {{ $beneficiarie->address }}</option>                                                      
+                                                <option value="{{ $beneficiarie->id }}" {{ old('beneficiary_id') == $beneficiarie->id ? 'selected' : null }}> {{ $beneficiarie->address }}</option>                                                      
                                                 @endforeach
                                             </select>
                                             @error('beneficiary_id')<span class="text-danger">{{ $message }}</span>@enderror
@@ -67,7 +67,7 @@
                                                 <select name="branch_id" class="form-control">
                                                     <option value="" selected disabled>اختر الفرع</option>
                                                     @foreach ($brnches as $brnch)
-                                                    <option value="{{ $brnch->id }}"> {{ $brnch->address }}</option>                                                      
+                                                    <option value="{{ $brnch->id }}" {{ old('branch_id') == $brnch->id ? 'selected' : null }}> {{ $brnch->address }}</option>                                                      
                                                     @endforeach
                                                 </select>
                                                 @error('branch_id')<span class="text-danger">{{ $message }}</span>@enderror
@@ -119,7 +119,6 @@
                         </div>
                     </div>
                 </section>
-                <!-- Input Mask End -->
 
             </div>
         </div>

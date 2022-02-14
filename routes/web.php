@@ -10,6 +10,7 @@ use App\Http\Controllers\MainBrancheController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VawtcherController;
 use App\Models\BeneficiariesProject;
 
 /*
@@ -49,6 +50,7 @@ Route::resource('donors', DonorController::class);
 Route::resource('beneficiareis', BeneficiaryController::class);
 Route::resource('beneficiareis-projects', BeneficiariesProjectController::class);
 Route::post('update_status', [BeneficiaryController::class, 'updateStatus'])->name('update_status');
+Route::resource('vawtchers', VawtcherController::class);
 
 //    start user
     Route::get('/users',[UserController::class,'index'])->name('users.index');

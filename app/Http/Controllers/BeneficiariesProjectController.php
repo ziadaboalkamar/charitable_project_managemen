@@ -34,11 +34,15 @@ class BeneficiariesProjectController extends Controller
                 ->editColumn('branch_name', function (BeneficiariesProject $beneficiariesProject) {
                     return $beneficiariesProject->branchs->address;
                 })
+                ->editColumn('beneficiary_name', function (BeneficiariesProject $beneficiariesProject) {
+                    return $beneficiariesProject->beneficiaries->address;
+                })
                 // ->editColumn('project_name', function (BeneficiariesProject $beneficiariesProject) {
                 //     return $beneficiariesProject->projects->company_name;
                 // })
                 ->rawColumns(['record_select', 'actions'])
                 ->make(true);
+        
         }
 
         return view('dashboard.pages.beneficiaries_projects.index',[
@@ -106,9 +110,19 @@ class BeneficiariesProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BeneficiariesProject $beneficiareis_project)
     {
-        //
+        for($i = 1 ; $i < 16 ; $i++)
+        {
+            $n[] = $i;
+        }
+        return view('dashboard.pages.beneficiaries_projects.edit',[
+            'projects' => Project::get(),
+            'brnches' => Branches::get(),
+            'beneficiaries' => Beneficiary::get(),
+            'family_members' => $n,
+            'beneficiareisProject' => $beneficiareis_project,
+        ]);
     }
 
     /**
@@ -118,9 +132,22 @@ class BeneficiariesProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BeneficiariesProjectRequest $request, BeneficiariesProject $beneficiareis_project)
     {
-        //
+        $data = [];
+        $data['project_id'] = $request->project_id;
+        $data['beneficiary_id'] = $request->beneficiary_id;
+        $data['branch_id'] = $request->branch_id;
+        $data['recever_name'] = $request->recever_name;
+        $data['family_member_count'] = $request->family_member_count;
+        $data['add_by'] = $request->add_by;
+        $data['delivery_date'] = $request->delivery_date;
+        $data['employee_who_delivered'] = $request->employee_who_delivered;
+        // $data['status_id'] = 1;
+        
+        $beneficiareis_project->update($data);
+        toastr()->success(__('تم تعديل البيانات بنجاح'));
+        return redirect()->route('beneficiareis-projects.index') ;     
     }
 
     /**
@@ -129,8 +156,11 @@ class BeneficiariesProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BeneficiariesProject $beneficiareis_project)
     {
-        //
+        $beneficiareis_project->delete();
+        toastr()->success(__('تم حذف البيانات بنجاح'));
+
+        return redirect()->route('beneficiareis-projects.index') ;   
     }
 }
